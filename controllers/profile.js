@@ -1,15 +1,42 @@
 const { validationResult } = require('express-validator');
 const Profile = require('../models/profile');
+const User = require('../models/user');
+
+exports.getAllProfiles = async (req, res, next) => {
+  try {
+    const profiles = await Profile.find().populate('userId', 'name, avatar');
+    if (!profiles) return res.status(400).json({ msg: 'No profile found' });
+    res.status(200).json({ profiles });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
 
 exports.getUserProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({
       userId: req.user.id,
-    }).populate('user', ['name, avatar']);
-    if (!profile) return res.status(404).json({ msg: 'Profile not found' });
+    }).populate('userId', 'name avatar');
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
     res.status(200).json({ profile });
   } catch (err) {
     console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.getProfileByUserId = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({
+      userId: req.params.user_id,
+    }).populate('userId', 'name avatar');
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+    res.status(200).json({ profile });
+  } catch (err) {
+    if (err.kind === 'ObjectId')
+      return res.status(400).json({ msg: 'Profile not found' });
+    console.error(err);
     res.status(500).send('Server Error');
   }
 };
@@ -75,6 +102,65 @@ exports.createOrUpdateProfile = async (req, res, next) => {
     profile = new Profile(profileFilds);
     await profile.save();
     res.status(200).json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  try {
+    await Profile.findOneAndRemove({ userId: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
+    // do delete post
+
+    res.status(200).json({ msg: 'User removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.addExperience = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty())
+    return res.status(400).json({
+      error: errors.array(),
+    });
+
+  const { title, company, location, from, to, current, description } = req.body;
+  const newExp = { title, company, location, from, to, current, description };
+
+  try {
+    const profile = await Profile.findOne({ userId: req.user.id });
+
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+    profile.experience.unshift(newExp);
+
+    await profile.save();
+
+    res.status(200).json({ profile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.removeExpById = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({ userId: req.user.id });
+
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+    const newExp = profile.experience.filter(
+      (exp) => exp._id.toString() !== req.params.exp_id
+    );
+    profile.experience = newExp;
+
+    await profile.save();
+
+    res.status(200).json({ profile });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
