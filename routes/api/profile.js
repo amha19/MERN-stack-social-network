@@ -50,4 +50,25 @@ router.delete(
   profileController.removeExpById
 );
 
+// PUT /api/profile/education
+router.put(
+  '/education',
+  checkAuth,
+  [
+    check('school', 'School is required').notEmpty(),
+    check('degree', 'Degree is required').notEmpty(),
+    check('fieldofstudy', 'Field of study is required').notEmpty(),
+    check('from', 'From is required').notEmpty(),
+  ],
+  profileController.addEducation
+);
+
+// DELETE /api/profile/education/edu_id
+// Removes selected education
+router.delete('/education/:edu_id', checkAuth, profileController.removeEduById);
+
+// GET /api/profile/github/:username
+// Gets user repos form github
+router.get('/github/:username', profileController.getUserRepos);
+
 module.exports = router;

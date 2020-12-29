@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const axios = require('axios');
+const config = require('config');
 const Profile = require('../models/profile');
 const User = require('../models/user');
 
@@ -164,5 +166,87 @@ exports.removeExpById = async (req, res, next) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
+  }
+};
+
+exports.addEducation = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty())
+    return res.status(400).json({
+      error: errors.array(),
+    });
+
+  const {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  } = req.body;
+
+  const newEdu = {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  };
+
+  try {
+    const profile = await Profile.findOne({ userId: req.user.id });
+
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+    profile.education.unshift(newEdu);
+
+    await profile.save();
+
+    res.status(200).json({ profile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.removeEduById = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({ userId: req.user.id });
+
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+    const newEdu = profile.education.filter(
+      (edu) => edu._id.toString() !== req.params.edu_id
+    );
+    profile.education = newEdu;
+
+    await profile.save();
+
+    res.status(200).json({ profile });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.getUserRepos = async (req, res, next) => {
+  try {
+    const uri = encodeURI(
+      `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+    );
+    const headers = {
+      'user-agent': 'node.js',
+      Authorization: `token ${config.get('GITHUB_TOKEN')}`,
+    };
+
+    const gitHubRes = await axios.get(uri, { headers });
+
+    res.json(gitHubRes.data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(404).json({ msg: 'No Github profile found' });
   }
 };
