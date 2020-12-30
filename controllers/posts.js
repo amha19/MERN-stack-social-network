@@ -158,14 +158,13 @@ exports.deleteComment = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.post_id);
     if (!post) return res.status(400).json({ msg: 'Post not found' });
-    console.log(post);
 
     const comment = post.comments.find(
       (c) => c._id.toString() === req.params.comment_id
     );
     if (!comment) return res.status(400).json({ msg: 'Comment not found' });
 
-    if (req.user.id !== comment.userId)
+    if (req.user.id !== comment.userId.toString())
       return res.status(401).json({ msg: 'Can not delete comment' });
 
     const newComment = post.comments.filter(
