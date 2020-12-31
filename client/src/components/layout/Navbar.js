@@ -1,21 +1,22 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
+  },
+  linkGroup: {
+    '& a': {
+      '&:hover': {
+        color: 'rgb(16, 113, 128)',
+      },
+    },
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+    fontSize: '1rem',
   },
 }));
 
@@ -23,21 +24,50 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            DevConnector
-          </IconButton> */}
-          <Typography variant="h6" className={classes.title}>
-            DevConnector
-          </Typography>
-          <Button color="inherit">Developers</Button>
-          <Button color="inherit">Register</Button>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          <Link
+            component={RouterLink}
+            to="/"
+            variant="inherit"
+            color="inherit"
+            underline="none"
+          >
+            {'</>'} DevConnector
+          </Link>
+        </Typography>
+        <Typography className={classes.linkGroup}>
+          <Link
+            color="inherit"
+            variant="inherit"
+            underline="none"
+            component={RouterLink}
+            to="/"
+          >
+            Developers
+          </Link>
+          <Link
+            color="inherit"
+            variant="inherit"
+            underline="none"
+            component={RouterLink}
+            to="/register"
+          >
+            Register
+          </Link>
+          <Link
+            color="inherit"
+            variant="inherit"
+            underline="none"
+            component={RouterLink}
+            to="/login"
+          >
+            Login
+          </Link>
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 

@@ -1,10 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button, Typography } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Background from '../../img/showcase.jpg';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
   paper: {
     textAlign: 'center',
     margin: 0,
@@ -23,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: theme.zIndex.appBar + 1,
   },
   landing_inner: {
     color: '#fff',
@@ -49,27 +54,33 @@ const useStyles = makeStyles((theme) => ({
 const Landing = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.paper}>
-      <div className={classes.dark_overlay}>
-        <div className={classes.landing_inner}>
-          <Typography variant="h2" gutterBottom={true}>
-            Developer Connector
-          </Typography>
-          <Typography variant="h5" gutterBottom={true}>
-            Create a developer profile/portfolio, share posts and get help from
-            other developers
-          </Typography>
-          <div className={classes.btns}>
-            <Button variant="contained" color="primary">
-              Sign Up
-            </Button>
-            <Button variant="contained" color="default">
-              Login
-            </Button>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <div className={classes.dark_overlay}>
+          <div className={classes.landing_inner}>
+            <Typography variant="h2" gutterBottom>
+              Developer Connector
+            </Typography>
+            <Typography variant="h5" gutterBottom>
+              Create a developer profile/portfolio, share posts and get help
+              from other developers
+            </Typography>
+            <div className={classes.btns}>
+              <RouterLink to="/register">
+                <Button variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </RouterLink>
+              <RouterLink to="/login">
+                <Button variant="contained" color="default">
+                  Login
+                </Button>
+              </RouterLink>
+            </div>
           </div>
         </div>
-      </div>
-    </Paper>
+      </Paper>
+    </div>
   );
 };
 
