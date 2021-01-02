@@ -7,6 +7,8 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Alert from './components/layout/Alert';
+import Error from './components/layout/Error';
 
 const theme = createMuiTheme({
   typography: {
@@ -40,11 +42,12 @@ const App = () => {
               <Navbar />
             </Grid>
             <Grid item>
+              <Alert />
               <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
-                {/* add route to error page */}
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route path="*" component={Error} />
               </Switch>
             </Grid>
           </Grid>

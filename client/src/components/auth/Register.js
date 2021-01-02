@@ -11,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/devsContext';
-import { actionTypes } from '../../context/actions/types';
+import { setAlert, removeAlert } from '../../context/actions/alert';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ const useStyle = makeStyles((theme) => ({
 
 const Register = () => {
   const classes = useStyle();
-  const { dispatch } = useGlobalContext();
+  const { alertDispatch } = useGlobalContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +47,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch({ type: actionTypes.SET_ALERT, payload: 'Working?' });
+    if (password !== password2) {
+      return setAlert('Passwords do not match', 'error')(alertDispatch);
+    }
+    removeAlert()(alertDispatch);
+    console.log('Success');
   };
   return (
     <div className={classes.root}>

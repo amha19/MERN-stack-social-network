@@ -11,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/devsContext';
-import { actionTypes } from '../../context/actions/types';
+import { setAlert } from '../../context/actions/alert';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -45,7 +45,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alertDispatch({ type: actionTypes.SET_ALERT, payload: email });
+    setAlert('login sccessfully', 'success')(alertDispatch);
   };
   return (
     <div className={classes.root}>

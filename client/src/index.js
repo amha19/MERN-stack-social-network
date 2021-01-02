@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { AppProvider } from './context/devsContext';
-import { debugContextDevtool } from 'react-context-devtool';
+// import { debugContextDevtool } from 'react-context-devtool';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,4 +14,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-debugContextDevtool(document.getElementById('root'));
+// debugContextDevtool(document.getElementById('root'));
