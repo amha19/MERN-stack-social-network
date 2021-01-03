@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, Grid } from '@material-ui/core';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -9,6 +9,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import Error from './components/layout/Error';
+import { loadUser } from './context/actions/auth';
+import { useGlobalContext } from './context/devsContext';
 
 const theme = createMuiTheme({
   typography: {
@@ -33,6 +35,11 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const { authDispatch } = useGlobalContext();
+  useEffect(() => {
+    loadUser()(authDispatch);
+  }, [authDispatch]);
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline>

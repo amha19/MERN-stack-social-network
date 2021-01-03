@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const AlertComp = () => {
-  const { show, msg, alertType, alertDispatch } = useGlobalContext();
+  const { alertState, alertDispatch } = useGlobalContext();
   const classes = useStyle();
 
   useEffect(() => {
@@ -25,11 +25,16 @@ const AlertComp = () => {
       removeAlert()(alertDispatch);
     }, 5000);
     return () => clearTimeout(timeout);
-  }, [show, alertDispatch]);
+  }, [alertState, alertDispatch]);
 
   return (
     <Grid className={classes.root}>
-      {show ? <Alert severity={alertType}>{msg}</Alert> : null}
+      {alertState.length > 0 &&
+        alertState.map((alert, index) => (
+          <Alert key={index} severity={alert.alertType}>
+            {alert.msg}
+          </Alert>
+        ))}
     </Grid>
   );
 };

@@ -8,10 +8,11 @@ import {
   Link,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/devsContext';
-import { setAlert } from '../../context/actions/alert';
+// import { setAlert } from '../../context/actions/alert';
+import { login } from '../../context/actions/auth';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -41,12 +42,18 @@ const Login = () => {
   const classes = useStyle();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { alertDispatch } = useGlobalContext();
+  const { authDispatch, alertDispatch, isAuth } = useGlobalContext();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setAlert('login sccessfully', 'success')(alertDispatch);
+
+    login(email, password)(authDispatch, alertDispatch);
   };
+
+  if (isAuth) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div className={classes.root}>
       <Grid container direction="column" justify="center" alignContent="center">

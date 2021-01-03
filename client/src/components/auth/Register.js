@@ -8,10 +8,11 @@ import {
   Link,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { setAlert, removeAlert } from '../../context/actions/alert';
+import { register } from '../../context/actions/auth';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -39,20 +40,27 @@ const useStyle = makeStyles((theme) => ({
 
 const Register = () => {
   const classes = useStyle();
-  const { alertDispatch } = useGlobalContext();
+  const { alertDispatch, authDispatch, isAuth } = useGlobalContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
       return setAlert('Passwords do not match', 'error')(alertDispatch);
+    } else {
+      const formData = { name, email, password };
+      register(formData)(authDispatch, alertDispatch);
+      removeAlert()(alertDispatch);
     }
-    removeAlert()(alertDispatch);
-    console.log('Success');
   };
+
+  if (isAuth) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div className={classes.root}>
       <Grid container direction="column" justify="center" alignContent="center">

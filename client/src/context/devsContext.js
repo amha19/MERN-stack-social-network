@@ -1,30 +1,16 @@
 import React, { useContext, useReducer } from 'react';
 
 import { alertReducer, alertInitialState } from './reducers/alert';
+import { authReducer, authInitialState } from './reducers/auth';
 
 const AppContext = React.createContext({
   isLoading: true,
   alertDispatch: () => {},
+  authDispatch: () => {},
 });
 
-const initialState = {
-  isLoading: true,
-  name: '',
-  email: '',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_ALERT':
-      console.log(action.payload);
-      return { ...state, name: action.payload };
-    default:
-      throw new Error('No action match dispatch');
-  }
-};
-
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [authState, authDispatch] = useReducer(authReducer, authInitialState);
   const [alertState, alertDispatch] = useReducer(
     alertReducer,
     alertInitialState
@@ -32,7 +18,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ ...state, dispatch, ...alertState, alertDispatch }}
+      value={{ ...authState, authDispatch, alertState, alertDispatch }}
     >
       {children}
     </AppContext.Provider>
