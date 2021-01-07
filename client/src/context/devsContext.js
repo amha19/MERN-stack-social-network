@@ -1,10 +1,11 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, createContext } from 'react';
 
 import { alertReducer, alertInitialState } from './reducers/alert';
 import { authReducer, authInitialState } from './reducers/auth';
 
-const AppContext = React.createContext({
+export const AppContext = createContext({
   isLoading: true,
+  alertState: [],
   alertDispatch: () => {},
   authDispatch: () => {},
 });
@@ -16,13 +17,14 @@ const AppProvider = ({ children }) => {
     alertInitialState
   );
 
-  return (
-    <AppContext.Provider
-      value={{ ...authState, authDispatch, alertState, alertDispatch }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
+  const value = {
+    ...authState,
+    authDispatch,
+    alertState,
+    alertDispatch,
+  };
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 const useGlobalContext = () => {

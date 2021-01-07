@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import {
-  Grid,
-  Typography,
-  TextField,
-  makeStyles,
-  Button,
-  Link,
-} from '@material-ui/core';
+import React from 'react';
+import { Grid, Typography, makeStyles, Button, Link } from '@material-ui/core';
+import { Formik, Form, Field } from 'formik';
+import { TextField as MikTextField } from 'formik-material-ui';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { useGlobalContext } from '../../context/devsContext';
-import { setAlert, removeAlert } from '../../context/actions/alert';
+// import { setAlert, removeAlert } from '../../context/actions/alert';
 import { register } from '../../context/actions/auth';
 
 const useStyle = makeStyles((theme) => ({
@@ -38,24 +34,22 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+const SignupSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Name is required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().min(6).required('Required'),
+  password2: Yup.string().oneOf(
+    [Yup.ref('password'), null],
+    'Passwords must match'
+  ),
+});
+
 const Register = () => {
   const classes = useStyle();
   const { alertDispatch, authDispatch, isAuth } = useGlobalContext();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      return setAlert('Passwords do not match', 'error')(alertDispatch);
-    } else {
-      const formData = { name, email, password };
-      register(formData)(authDispatch, alertDispatch);
-      removeAlert()(alertDispatch);
-    }
-  };
 
   if (isAuth) {
     return <Redirect to="/dashboard" />;
@@ -73,50 +67,76 @@ const Register = () => {
           <PersonIcon />
           <Typography variant="h5">Create Your Account</Typography>
         </div>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            id="outlined-name"
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            variant="outlined"
-            type="text"
-            required
-          />
-          <TextField
-            id="outlined-email"
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-            type="text"
-            required
-          />
-          <small>
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            variant="outlined"
-            type="password"
-            required
-          />
-          <TextField
-            id="outlined-password2-input"
-            label="Confirm Password"
-            value={password2}
-            onChange={(e) => setPassword2(e.target.value)}
-            type="password"
-            variant="outlined"
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Register
-          </Button>
-        </form>
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            password: '',
+            password2: '',
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            const { name, email, password } = values;
+            setTimeout(() => {
+              setSubmitting(false);
+              const formData = { name, email, password };
+              register(formData)(authDispatch, alertDispatch); // alert dispatch can be removed
+            }, 500);
+          }}
+        >
+          {({ submitForm, isSubmitting }) => (
+            <Form className={classes.form}>
+              <Field
+                component={MikTextField}
+                id="outlined-name"
+                name="name"
+                label="Name"
+                type="text"
+                variant="outlined"
+                required
+              />
+              <Field
+                component={MikTextField}
+                id="outlined-email"
+                name="email"
+                label="Email"
+                type="email"
+                variant="outlined"
+                required
+              />
+              <small>
+                This site uses Gravatar so if you want a profile image, use a
+                Gravatar email
+              </small>
+              <Field
+                component={MikTextField}
+                id="outlined-password-input"
+                name="password"
+                label="Password"
+                type="password"
+                variant="outlined"
+                required
+              />
+              <Field
+                component={MikTextField}
+                name="password2"
+                id="outlined-password2-input"
+                label="Confirm Password"
+                type="password"
+                variant="outlined"
+                required
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                onClick={submitForm}
+              >
+                Register
+              </Button>
+            </Form>
+          )}
+        </Formik>
         <Typography variant="subtitle1">
           Already have an account?{' '}
           <Link component={RouterLink} to="/login">

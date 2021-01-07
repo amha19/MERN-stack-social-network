@@ -25,7 +25,7 @@ const AlertComp = () => {
       removeAlert()(alertDispatch);
     }, 5000);
     return () => clearTimeout(timeout);
-  }, [alertState, alertDispatch]);
+  }, [alertDispatch]);
 
   return (
     <Grid className={classes.root}>

@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import {
-  Grid,
-  Typography,
-  TextField,
-  makeStyles,
-  Button,
-  Link,
-} from '@material-ui/core';
+import React from 'react';
+import { Grid, Typography, makeStyles, Button, Link } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
+import { Formik, Form, Field } from 'formik';
+import { TextField as MikTextField } from 'formik-material-ui';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { useGlobalContext } from '../../context/devsContext';
-// import { setAlert } from '../../context/actions/alert';
 import { login } from '../../context/actions/auth';
 
 const useStyle = makeStyles((theme) => ({
@@ -38,17 +33,14 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
+
 const Login = () => {
   const classes = useStyle();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { authDispatch, alertDispatch, isAuth } = useGlobalContext();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    login(email, password)(authDispatch, alertDispatch);
-  };
 
   if (isAuth) {
     return <Redirect to="/dashboard" />;
@@ -66,29 +58,48 @@ const Login = () => {
           <PersonIcon />
           <Typography variant="h5">Login into Your Account</Typography>
         </div>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            id="outlined-email"
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-            type="text"
-            required
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            variant="outlined"
-            type="password"
-            required
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Login
-          </Button>
-        </form>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            const { email, password } = values;
+            setTimeout(() => {
+              setSubmitting(false);
+              login(email, password)(authDispatch, alertDispatch);
+            }, 500);
+          }}
+        >
+          {({ submitForm, isSubmitting }) => (
+            <Form className={classes.form}>
+              <Field
+                component={MikTextField}
+                name="email"
+                type="email"
+                label="Email"
+                helperText="Please Enter Email"
+                variant="outlined"
+              />
+              <Field
+                component={MikTextField}
+                type="password"
+                label="Password"
+                name="password"
+                variant="outlined"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                onClick={submitForm}
+              >
+                Login
+              </Button>
+            </Form>
+          )}
+        </Formik>
         <Typography variant="subtitle1">
           Don't have an account?{' '}
           <Link component={RouterLink} to="/register">

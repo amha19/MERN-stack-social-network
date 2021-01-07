@@ -14,6 +14,7 @@ export const loadUser = () => async (authDispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    console.log(err.response);
     authDispatch({
       type: actions.AUTH_ERROR,
     });
@@ -64,6 +65,6 @@ export const login = (email, password) => async (
   }
 };
 
-export const logout = () => async (authDispatch) => {
+export const logout = () => (authDispatch) => {
   authDispatch({ type: actions.LOGOUT });
 };
