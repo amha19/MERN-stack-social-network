@@ -11,6 +11,8 @@ import Alert from './components/layout/Alert';
 import Error from './components/layout/Error';
 import { loadUser } from './context/actions/auth';
 import { useGlobalContext } from './context/devsContext';
+import PrivateRoute from './components/routing/PrivateRoute';
+import Dashboard from './components/dashboard/Dashboard';
 
 const theme = createMuiTheme({
   typography: {
@@ -35,7 +37,7 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-  const { authDispatch } = useGlobalContext();
+  const { authDispatch, alertState } = useGlobalContext();
   useEffect(() => {
     loadUser()(authDispatch);
   }, [authDispatch]);
@@ -49,11 +51,12 @@ const App = () => {
               <Navbar />
             </Grid>
             <Grid item>
-              <Alert />
+              {alertState.length > 0 && <Alert />}
               <Switch>
                 <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <PrivateRoute path="/dashboard" component={Dashboard} />
                 <Route path="*" component={Error} />
               </Switch>
             </Grid>

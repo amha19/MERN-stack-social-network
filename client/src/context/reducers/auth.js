@@ -37,7 +37,7 @@ export const authReducer = (state = authInitialState, action) => {
         token: null,
         isAuth: false,
         user: null,
-        isLoading: false,
+        isLoading: true,
       };
     default:
       throw new Error('No action match dispatch');
