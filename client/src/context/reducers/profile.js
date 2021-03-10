@@ -4,7 +4,7 @@ export const profileInitialState = {
     profile: null,
     profiles: [],
     pros: [],
-    isLoading: true,
+    profileLoading: true,
     error: {},
 };
 

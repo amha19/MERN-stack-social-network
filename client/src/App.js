@@ -15,56 +15,63 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 
 const theme = createMuiTheme({
-  typography: {
-    h2: {
-      fontSize: '3rem',
+    typography: {
+        h2: {
+            fontSize: '3rem',
+        },
+        h5: {
+            fontSize: '1.25rem',
+        },
     },
-    h5: {
-      fontSize: '1.25rem',
+    palette: {
+        primary: {
+            main: '#17a2b8',
+        },
+        secondary: {
+            main: 'rgb(197,208,222)',
+        },
+        background: {
+            default: 'rgb(247, 247, 247)',
+        },
     },
-  },
-  palette: {
-    primary: {
-      main: '#17a2b8',
-    },
-    secondary: {
-      main: 'rgb(197,208,222)',
-    },
-    background: {
-      default: 'rgb(247, 247, 247)',
-    },
-  },
 });
 
 const App = () => {
-  const { authDispatch, alertState } = useGlobalContext();
-  useEffect(() => {
-    loadUser()(authDispatch);
-  }, [authDispatch]);
+    const { authDispatch, alertState } = useGlobalContext();
+    useEffect(() => {
+        loadUser()(authDispatch);
+    }, [authDispatch]);
 
-  return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline>
-        <BrowserRouter>
-          <Grid container direction="column">
-            <Grid item>
-              <Navbar />
-            </Grid>
-            <Grid item>
-              {alertState.length > 0 && <Alert />}
-              <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
-                <PrivateRoute path="/dashboard" component={Dashboard} />
-                <Route path="*" component={Error} />
-              </Switch>
-            </Grid>
-          </Grid>
-        </BrowserRouter>
-      </CssBaseline>
-    </MuiThemeProvider>
-  );
+    return (
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline>
+                <BrowserRouter>
+                    <Grid container direction="column">
+                        <Grid item>
+                            <Navbar />
+                        </Grid>
+                        <Grid item>
+                            {alertState.length > 0 && <Alert />}
+                            <Switch>
+                                <Route exact path="/" component={Landing} />
+                                <Route exact path="/login" component={Login} />
+                                <Route
+                                    exact
+                                    path="/register"
+                                    component={Register}
+                                />
+                                <PrivateRoute
+                                    path="/dashboard"
+                                    component={Dashboard}
+                                />
+                                <Route path="*" component={Error} />
+                            </Switch>
+                        </Grid>
+                    </Grid>
+                </BrowserRouter>
+            </CssBaseline>
+        </MuiThemeProvider>
+    );
 };
 
 export default App;
