@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Link, Grid } from '@material-ui/core';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -13,20 +14,17 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     linkGroup: {
+        width: 'auto',
         '& a': {
             '&:hover': {
                 color: 'rgb(16, 113, 128)',
+                cursor: 'pointer',
             },
         },
-        '& > * + *': {
+        '& > *': {
             marginLeft: theme.spacing(2),
         },
         fontSize: '1rem',
-    },
-    logoutIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        cursor: 'pointer',
     },
 }));
 
@@ -35,74 +33,85 @@ const Navbar = () => {
     const { isLoading, isAuth, authDispatch } = useGlobalContext();
 
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <Link
-                    className={classes.title}
-                    component={RouterLink}
-                    to="/"
-                    variant="inherit"
-                    color="inherit"
-                    underline="none"
-                >
-                    <Grid container>
+        <div style={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <Link
+                        className={classes.title}
+                        style={{ display: 'inherit' }}
+                        component={RouterLink}
+                        to="/"
+                        variant="inherit"
+                        color="inherit"
+                        underline="none"
+                    >
                         <Grid item>
                             <DeveloperModeIcon />
                         </Grid>
                         <Grid item>
-                            <Typography variant="h6"> DevConnector</Typography>
+                            <Typography>DevConnector</Typography>
                         </Grid>
-                    </Grid>
-                </Link>
-
-                {!isAuth && (
-                    <Typography className={classes.linkGroup}>
-                        <Link
-                            color="inherit"
-                            variant="inherit"
-                            underline="none"
-                            component={RouterLink}
-                            to="/"
-                        >
-                            Developers
-                        </Link>
-                        <Link
-                            color="inherit"
-                            variant="inherit"
-                            underline="none"
-                            component={RouterLink}
-                            to="/register"
-                        >
-                            Register
-                        </Link>
-                        <Link
-                            color="inherit"
-                            variant="inherit"
-                            underline="none"
-                            component={RouterLink}
-                            to="/login"
-                        >
-                            Login
-                        </Link>
-                    </Typography>
-                )}
-                {isAuth && !isLoading && (
-                    <Typography className={classes.linkGroup}>
-                        <Link
-                            color="inherit"
-                            variant="inherit"
-                            underline="none"
-                            onClick={() => logout()(authDispatch)}
-                        >
-                            <span className={classes.logoutIcon}>
+                    </Link>
+                    {!isAuth && (
+                        <Grid item container className={classes.linkGroup}>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                component={RouterLink}
+                                to="/"
+                            >
+                                <Typography>Developers</Typography>
+                            </Link>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                style={{ display: 'inherit' }}
+                                component={RouterLink}
+                                to="/register"
+                            >
+                                <Typography>Register</Typography>
+                            </Link>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                style={{ display: 'inherit' }}
+                                component={RouterLink}
+                                to="/login"
+                            >
+                                <Typography>Login</Typography>
+                            </Link>
+                        </Grid>
+                    )}
+                    {isAuth && !isLoading && (
+                        <Grid item container className={classes.linkGroup}>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                style={{ display: 'inherit' }}
+                                href="#"
+                            >
+                                <PersonIcon />
+                                <Typography>Dashboard</Typography>
+                            </Link>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                onClick={() => logout()(authDispatch)}
+                                style={{ display: 'inherit' }}
+                            >
                                 <ExitToAppIcon />
-                                Logout
-                            </span>
-                        </Link>
-                    </Typography>
-                )}
-            </Toolbar>
-        </AppBar>
+                                <Typography>Logout</Typography>
+                            </Link>
+                        </Grid>
+                    )}
+                </Toolbar>
+            </AppBar>
+        </div>
     );
 };
 

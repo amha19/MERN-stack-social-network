@@ -9,6 +9,7 @@ export const AppContext = createContext({
     alertState: [],
     alertDispatch: () => {},
     authDispatch: () => {},
+    profileDispatch: () => {},
 });
 
 const AppProvider = ({ children }) => {
