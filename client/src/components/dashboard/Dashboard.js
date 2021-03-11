@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { getCurrentProfile } from '../../context/actions/profile';
 
 const Dashboard = () => {
-    const { isAuth, profile, profileDispatch } = useGlobalContext();
+    const {
+        profileLoading,
+        isAuth,
+        profile,
+        profileDispatch,
+    } = useGlobalContext();
 
     useEffect(() => {
-        console.log('useEffect: ');
         getCurrentProfile()(profileDispatch);
     }, []);
 
+    if (profileLoading) return <LinearProgress />;
+
     return (
         <Grid container>
-            <Grid item>Dashboard temporarly empty</Grid>
+            <Grid item>Dashboard</Grid>
         </Grid>
     );
 };

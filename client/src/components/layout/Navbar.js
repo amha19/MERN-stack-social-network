@@ -92,7 +92,7 @@ const Navbar = () => {
                                 variant="inherit"
                                 underline="none"
                                 style={{ display: 'inherit' }}
-                                href="#"
+                                to="/dashboard"
                             >
                                 <PersonIcon />
                                 <Typography>Dashboard</Typography>

@@ -15,7 +15,7 @@ export const profileReducer = (state = profileInitialState, action) => {
             return {
                 ...state,
                 profile: payload,
-                isLoading: false,
+                profileLoading: false,
             };
         case actions.PROFILE_ERROR:
             return {
