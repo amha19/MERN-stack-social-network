@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, LinearProgress, Typography } from '@material-ui/core';
+import { Grid, LinearProgress, Typography, Button } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { useGlobalContext } from '../../context/devsContext';
@@ -36,7 +36,13 @@ const Dashboard = () => {
                         <Typography>has</Typography>
                     </>
                 ) : (
-                    <>has not</>
+                    <>
+                        <Typography>
+                            You have not yet setup a profile, please add some
+                            info
+                        </Typography>
+                        <Button>Create Profile</Button>
+                    </>
                 )}
             </Grid>
         </Grid>

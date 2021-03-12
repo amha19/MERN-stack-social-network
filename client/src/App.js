@@ -10,28 +10,7 @@ import Error from './components/layout/Error';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
-
-const theme = createMuiTheme({
-    typography: {
-        h2: {
-            fontSize: '3rem',
-        },
-        h5: {
-            fontSize: '1.25rem',
-        },
-    },
-    palette: {
-        primary: {
-            main: '#17a2b8',
-        },
-        secondary: {
-            main: 'rgb(197,208,222)',
-        },
-        background: {
-            default: 'rgb(247, 247, 247)',
-        },
-    },
-});
+import { theme } from './themes/theme';
 
 const App = () => {
     return (
