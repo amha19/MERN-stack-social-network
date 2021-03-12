@@ -14,6 +14,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         getCurrentProfile()(profileDispatch);
+        // eslint-disable-next-line
     }, []);
 
     if (profileLoading) return <LinearProgress />;

@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, Grid } from '@material-ui/core';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Alert from './components/layout/Alert';
 import Error from './components/layout/Error';
-import { loadUser } from './context/actions/auth';
-import { useGlobalContext } from './context/devsContext';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
+import Layout from './components/layout/Layout';
 
 const theme = createMuiTheme({
     typography: {
@@ -37,35 +34,32 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-    const { authDispatch, alertState } = useGlobalContext();
-    useEffect(() => {
-        loadUser()(authDispatch);
-    }, [authDispatch]);
-
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline>
                 <BrowserRouter>
                     <Grid container direction="column">
                         <Grid item>
-                            <Navbar />
-                        </Grid>
-                        <Grid item>
-                            {alertState.length > 0 && <Alert />}
-                            <Switch>
-                                <Route exact path="/" component={Landing} />
-                                <Route exact path="/login" component={Login} />
-                                <Route
-                                    exact
-                                    path="/register"
-                                    component={Register}
-                                />
-                                <PrivateRoute
-                                    path="/dashboard"
-                                    component={Dashboard}
-                                />
-                                <Route path="*" component={Error} />
-                            </Switch>
+                            <Layout>
+                                <Switch>
+                                    <Route exact path="/" component={Landing} />
+                                    <Route
+                                        exact
+                                        path="/login"
+                                        component={Login}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/register"
+                                        component={Register}
+                                    />
+                                    <PrivateRoute
+                                        path="/dashboard"
+                                        component={Dashboard}
+                                    />
+                                    <Route path="*" component={Error} />
+                                </Switch>
+                            </Layout>
                         </Grid>
                     </Grid>
                 </BrowserRouter>
