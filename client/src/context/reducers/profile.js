@@ -3,13 +3,14 @@ import * as actions from '../actions/types';
 export const profileInitialState = {
     profile: null,
     profiles: [],
-    pros: [],
+    repos: [],
     profileLoading: true,
     error: {},
 };
 
 export const profileReducer = (state = profileInitialState, action) => {
     const { type, payload } = action;
+
     switch (type) {
         case actions.GET_PROFILE:
             return {
@@ -21,7 +22,12 @@ export const profileReducer = (state = profileInitialState, action) => {
             return {
                 ...state,
                 error: payload,
-                isLoading: false,
+                profileLoading: false,
+            };
+        case actions.CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
             };
         default:
             throw new Error('No action match dispatch');

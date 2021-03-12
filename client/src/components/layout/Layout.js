@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { LinearProgress, Grid } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { loadUser } from '../../context/actions/auth';

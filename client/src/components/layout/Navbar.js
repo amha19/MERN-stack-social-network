@@ -30,7 +30,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
     const classes = useStyles();
-    const { isLoading, isAuth, authDispatch } = useGlobalContext();
+    const {
+        isLoading,
+        isAuth,
+        authDispatch,
+        profileDispatch,
+    } = useGlobalContext();
 
     return (
         <div style={{ flexGrow: 1 }}>
@@ -101,7 +106,9 @@ const Navbar = () => {
                                 color="inherit"
                                 variant="inherit"
                                 underline="none"
-                                onClick={() => logout()(authDispatch)}
+                                onClick={() =>
+                                    logout()(authDispatch, profileDispatch)
+                                }
                                 style={{ display: 'inherit' }}
                             >
                                 <ExitToAppIcon />

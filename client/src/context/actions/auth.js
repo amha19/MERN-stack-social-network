@@ -4,67 +4,68 @@ import { setAlert } from './alert';
 import * as actions from './types';
 
 export const loadUser = () => async (authDispatch) => {
-  const token = localStorage.getItem('token');
-  if (token) setAuthToken(token);
-  try {
-    const res = await axios.get('api/auth');
+    const token = localStorage.getItem('token');
+    if (token) setAuthToken(token);
+    try {
+        const res = await axios.get('api/auth');
 
-    authDispatch({
-      type: actions.USER_LOADED,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err.response);
-    authDispatch({
-      type: actions.AUTH_ERROR,
-    });
-  }
+        authDispatch({
+            type: actions.USER_LOADED,
+            payload: res.data,
+        });
+    } catch (err) {
+        console.log(err.response);
+        authDispatch({
+            type: actions.AUTH_ERROR,
+        });
+    }
 };
 
 export const register = (dataForm) => async (authDispatch, alertDispatch) => {
-  try {
-    const res = await axios.post('api/users', dataForm);
+    try {
+        const res = await axios.post('api/users', dataForm);
 
-    authDispatch({ type: actions.REGISTER_SUCCESS, payload: res.data });
+        authDispatch({ type: actions.REGISTER_SUCCESS, payload: res.data });
 
-    loadUser()(authDispatch);
-    setAlert('Registered successfully', 'success')(alertDispatch);
-  } catch (err) {
-    const errors = err.response.data.errors;
+        loadUser()(authDispatch);
+        setAlert('Registered successfully', 'success')(alertDispatch);
+    } catch (err) {
+        const errors = err.response.data.errors;
 
-    if (errors) {
-      errors.forEach((error) => {
-        setAlert(error.msg, 'error')(alertDispatch);
-      });
+        if (errors) {
+            errors.forEach((error) => {
+                setAlert(error.msg, 'error')(alertDispatch);
+            });
+        }
+        authDispatch({ type: actions.REGISTER_FAIL });
     }
-    authDispatch({ type: actions.REGISTER_FAIL });
-  }
 };
 
 export const login = (email, password) => async (
-  authDispatch,
-  alertDispatch
+    authDispatch,
+    alertDispatch
 ) => {
-  try {
-    const res = await axios.post('api/auth', { email, password });
+    try {
+        const res = await axios.post('api/auth', { email, password });
 
-    authDispatch({ type: actions.LOGIN_SUCCESS, payload: res.data });
+        authDispatch({ type: actions.LOGIN_SUCCESS, payload: res.data });
 
-    loadUser()(authDispatch);
-    setAlert('Logged in successfully', 'success')(alertDispatch);
-  } catch (err) {
-    const errors = err.response.data.errors;
+        loadUser()(authDispatch);
+        setAlert('Logged in successfully', 'success')(alertDispatch);
+    } catch (err) {
+        const errors = err.response.data.errors;
 
-    if (errors) {
-      errors.forEach((error) => {
-        setAlert(error.msg, 'error')(alertDispatch);
-      });
+        if (errors) {
+            errors.forEach((error) => {
+                setAlert(error.msg, 'error')(alertDispatch);
+            });
+        }
+
+        authDispatch({ type: actions.LOGIN_FAIL });
     }
-
-    authDispatch({ type: actions.LOGIN_FAIL });
-  }
 };
 
-export const logout = () => (authDispatch) => {
-  authDispatch({ type: actions.LOGOUT });
+export const logout = () => (authDispatch, profileDispatch) => {
+    profileDispatch({ type: actions.CLEAR_PROFILE });
+    authDispatch({ type: actions.LOGOUT });
 };
