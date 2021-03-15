@@ -20,4 +20,18 @@ export const theme = createMuiTheme({
             default: 'rgb(247, 247, 247)',
         },
     },
+    overrides: {
+        // Style sheet name
+        MuiButton: {
+            // Name of the rule
+            containedPrimary: {
+                background: '#17a2b8',
+                textTransform: 'capitalize',
+                borderRadius: 3,
+                color: 'white',
+                padding: '4 20px',
+                fontSize: '1rem',
+            },
+        },
+    },
 });

@@ -1,11 +1,34 @@
 import React, { useEffect } from 'react';
-import { Grid, LinearProgress, Typography, Button } from '@material-ui/core';
+import {
+    Grid,
+    LinearProgress,
+    Typography,
+    Button,
+    makeStyles,
+} from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { getCurrentProfile } from '../../context/actions/profile';
 
+const useStyle = makeStyles((theme) => ({
+    dashboard: {
+        padding: theme.spacing(4, 1, 2, 1),
+    },
+    subTitle: {
+        margin: theme.spacing(2, 0),
+        '& h5': {
+            marginLeft: 6,
+        },
+    },
+    createProBtn: {
+        width: 200,
+        marginTop: theme.spacing(3),
+    },
+}));
+
 const Dashboard = () => {
+    const classes = useStyle();
     const {
         profileLoading,
         profile,
@@ -20,31 +43,49 @@ const Dashboard = () => {
     if (profileLoading) return <LinearProgress />;
 
     return (
-        <Grid container direction="column">
-            <Grid item>
-                <Typography variant="h2">Dashboard</Typography>
+        <Grid container>
+            <Grid item md={2}></Grid>
+            <Grid
+                item
+                container
+                md={8}
+                direction="column"
+                className={classes.dashboard}
+            >
+                <Grid item>
+                    <Typography color="primary" variant="h2">
+                        Dashboard
+                    </Typography>
+                </Grid>
+                <Grid item container className={classes.subTitle}>
+                    <PersonIcon />
+                    <Typography variant="h5">
+                        Welcome {user && user.user.name}
+                    </Typography>
+                </Grid>
+                <Grid item container direction="column">
+                    {profile ? (
+                        <>
+                            <Typography>has</Typography>
+                        </>
+                    ) : (
+                        <>
+                            <Typography>
+                                You have not yet setup a profile, please add
+                                some info
+                            </Typography>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.createProBtn}
+                            >
+                                Create Profile
+                            </Button>
+                        </>
+                    )}
+                </Grid>
             </Grid>
-            <Grid item container>
-                <PersonIcon />
-                <Typography color="primary" variant="body1">
-                    Welcome {user && user.user.name}
-                </Typography>
-            </Grid>
-            <Grid item container>
-                {profile ? (
-                    <>
-                        <Typography>has</Typography>
-                    </>
-                ) : (
-                    <>
-                        <Typography>
-                            You have not yet setup a profile, please add some
-                            info
-                        </Typography>
-                        <Button>Create Profile</Button>
-                    </>
-                )}
-            </Grid>
+            <Grid item md={2}></Grid>
         </Grid>
     );
 };
