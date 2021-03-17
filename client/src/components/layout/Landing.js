@@ -79,7 +79,14 @@ const Landing = () => {
                                 </Button>
                             </RouterLink>
                             <RouterLink to="/login">
-                                <Button variant="contained" color="default">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    style={{
+                                        textTransform: 'capitalize',
+                                        fontSize: '1rem',
+                                    }}
+                                >
                                     Login
                                 </Button>
                             </RouterLink>

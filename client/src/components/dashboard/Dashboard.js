@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     Grid,
     LinearProgress,
@@ -29,6 +30,7 @@ const useStyle = makeStyles((theme) => ({
 
 const Dashboard = () => {
     const classes = useStyle();
+    const history = useHistory();
     const {
         profileLoading,
         profile,
@@ -78,6 +80,7 @@ const Dashboard = () => {
                                 variant="contained"
                                 color="primary"
                                 className={classes.createProBtn}
+                                onClick={() => history.push('/create-profile')}
                             >
                                 Create Profile
                             </Button>

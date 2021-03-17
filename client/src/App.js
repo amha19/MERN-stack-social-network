@@ -11,6 +11,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
 import { theme } from './themes/theme';
+import CreateProfile from './components/profile-form/CreateProfile';
 
 const App = () => {
     return (
@@ -35,6 +36,10 @@ const App = () => {
                                     <PrivateRoute
                                         path="/dashboard"
                                         component={Dashboard}
+                                    />
+                                    <PrivateRoute
+                                        path="/create-profile"
+                                        component={CreateProfile}
                                     />
                                     <Route path="*" component={Error} />
                                 </Switch>

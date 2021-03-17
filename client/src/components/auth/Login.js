@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { useGlobalContext } from '../../context/devsContext';
 import { login } from '../../context/actions/auth';
 
-const useStyle = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         '& h5': {
             marginBottom: theme.spacing(2),
@@ -39,7 +39,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-    const classes = useStyle();
+    const classes = useStyles();
     const { authDispatch, alertDispatch, isAuth } = useGlobalContext();
 
     if (isAuth) {
