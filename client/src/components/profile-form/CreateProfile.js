@@ -11,23 +11,55 @@ import {
     TextField,
     FormHelperText,
     TextareaAutosize,
+    OutlinedInput,
+    InputLabel,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import InstagramIcon from '@material-ui/icons/Instagram';
 
 const useStyles = makeStyles((theme) => ({
+    profileContainer: {
+        padding: theme.spacing(4, 2),
+        // alignItems: 'center',
+    },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: '75%',
-    },
-    profileContainer: {
-        padding: theme.spacing(4, 0),
+        width: '100%',
+        '& input': {
+            padding: 12,
+        },
     },
     addSocialBtn: {
         alignItems: 'center',
         '& p': {
             marginLeft: 12,
+        },
+    },
+    selectInput: {
+        padding: 12,
+    },
+    formControlSocial: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        marginTop: 10,
+        '& input': {
+            padding: 12,
+        },
+        '& svg': {
+            marginLeft: 12,
+        },
+    },
+    btnContainer: {
+        padding: '12px 0 8px 8px',
+        '& button': {
+            marginRight: 16,
         },
     },
 }));
@@ -47,7 +79,9 @@ const CreateProfile = () => {
         facebook: '',
         linkedin: '',
         instagram: '',
+        sel: 'working',
     });
+    const [showSocial, setShowSocial] = useState(false);
 
     return (
         <Grid container>
@@ -70,109 +104,219 @@ const CreateProfile = () => {
                     </Typography>
                 </Grid>
                 <Typography>* = required field</Typography>
-                <form className="form">
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <FormLabel>* Select Professional Status</FormLabel>
-                        <Select
-                            value={formData}
-                            onChange={() => console.log('clicked')}
+                <Grid item container>
+                    <form className="form">
+                        <FormControl
+                            variant="outlined"
+                            className={classes.formControl}
                         >
-                            <MenuItem value="Developer">Developer</MenuItem>
-                            <MenuItem value="Junior Developer">
-                                Junior Developer
-                            </MenuItem>
-                            <MenuItem value="Senior Developer">
-                                Senior Developer
-                            </MenuItem>
-                            <MenuItem value="Manager">Manager</MenuItem>
-                            <MenuItem value="Instructor">Instructor</MenuItem>
-                            <MenuItem value="Intern">Intern</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
-                        </Select>
-                        <FormHelperText>
-                            Give us an idea of where you are at in your career
-                        </FormHelperText>
-                    </FormControl>
+                            <FormLabel>* Select Professional Status</FormLabel>
+                            <Select
+                                value={formData.sel}
+                                input={
+                                    <OutlinedInput
+                                        classes={{ input: classes.selectInput }}
+                                    />
+                                }
+                                onChange={() => console.log('clicked')}
+                            >
+                                <MenuItem value="Developer">Developer</MenuItem>
+                                <MenuItem value="Junior Developer">
+                                    Junior Developer
+                                </MenuItem>
+                                <MenuItem value="Senior Developer">
+                                    Senior Developer
+                                </MenuItem>
+                                <MenuItem value="Manager">Manager</MenuItem>
+                                <MenuItem value="Instructor">
+                                    Instructor
+                                </MenuItem>
+                                <MenuItem value="Intern">Intern</MenuItem>
+                                <MenuItem value="Other">Other</MenuItem>
+                            </Select>
+                            <FormHelperText>
+                                Give us an idea of where you are at in your
+                                career
+                            </FormHelperText>
+                        </FormControl>
 
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                        <FormControl
                             variant="outlined"
-                            helperText="Could be your own company or one you work for"
-                            placeholder="Company"
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Could be your own company or one you work for"
+                                placeholder="Company"
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="Could be your own or a company website"
-                            placeholder="Website"
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Could be your own or a company website"
+                                placeholder="Website"
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="City & state suggested (eg. Boston, MA)"
-                            placeholder="Location"
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="City & state suggested (eg. Boston, MA)"
+                                placeholder="Location"
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="Please use comma separated values (eg.
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Please use comma separated values (eg.
                                 HTML,CSS,JavaScript,PHP)"
-                            placeholder="* Skills"
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                                placeholder="* Skills"
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="If you want your latest repos and a Github link,
-                            include your username"
-                            placeholder="GitHub Username"
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextareaAutosize
-                            rowsMin={4}
-                            placeholder="A short bio of yourself"
-                        ></TextareaAutosize>
-                        <FormHelperText>
-                            Tell us a little about yourself
-                        </FormHelperText>
-                    </FormControl>
-
-                    <Grid item container className={classes.addSocialBtn}>
-                        <Button
-                            endIcon={
-                                true ? <ExpandMoreIcon /> : <ExpandLessIcon />
-                            }
+                            className={classes.formControl}
                         >
-                            Add Social Network Links
-                        </Button>
-                        <Typography>Optional</Typography>
-                    </Grid>
-                </form>
+                            <TextField
+                                variant="outlined"
+                                helperText="If you want your latest repos and a Github link,
+                            include your username"
+                                placeholder="GitHub Username"
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
+                            variant="outlined"
+                            className={classes.formControl}
+                        >
+                            <TextareaAutosize
+                                rowsMin={4}
+                                placeholder="A short bio of yourself"
+                            ></TextareaAutosize>
+                            <FormHelperText>
+                                Tell us a little about yourself
+                            </FormHelperText>
+                        </FormControl>
+
+                        <Grid item container className={classes.addSocialBtn}>
+                            <Button
+                                endIcon={
+                                    showSocial ? (
+                                        <ExpandLessIcon />
+                                    ) : (
+                                        <ExpandMoreIcon />
+                                    )
+                                }
+                                onClick={() =>
+                                    setShowSocial((preState) => !preState)
+                                }
+                            >
+                                Add Social Network Links
+                            </Button>
+                            <Typography>Optional</Typography>
+                        </Grid>
+                        {showSocial && (
+                            <>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <TwitterIcon fontSize="large" />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Twitter URL"
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <FacebookIcon fontSize="large" />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Facebook URL"
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <LinkedInIcon fontSize="large" />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="LinkedIn URL"
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <YouTubeIcon fontSize="large" />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Youtube URL"
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <InstagramIcon fontSize="large" />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Instagram URL"
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.btnContainer}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => console.log('submit')}
+                                    >
+                                        Submit
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="default"
+                                        onClick={() => console.log('go back')}
+                                        style={{
+                                            textTransform: 'capitalize',
+                                            fontSize: '1rem',
+                                        }}
+                                    >
+                                        Go back
+                                    </Button>
+                                </Grid>
+                            </>
+                        )}
+                    </form>
+                </Grid>
             </Grid>
             <Grid item md={2}></Grid>
         </Grid>
