@@ -97,6 +97,7 @@ const Navbar = () => {
                                 variant="inherit"
                                 underline="none"
                                 style={{ display: 'inherit' }}
+                                component={RouterLink}
                                 to="/dashboard"
                             >
                                 <PersonIcon />

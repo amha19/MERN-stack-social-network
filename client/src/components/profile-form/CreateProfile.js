@@ -12,7 +12,6 @@ import {
     FormHelperText,
     TextareaAutosize,
     OutlinedInput,
-    InputLabel,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -26,7 +25,24 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
         padding: theme.spacing(4, 2),
-        // alignItems: 'center',
+    },
+    headTitle: {
+        marginBottom: 16,
+    },
+    lead: {
+        alignItems: 'center',
+        '& p': {
+            marginLeft: 6,
+            fontSize: '1.15rem',
+        },
+    },
+    required: {
+        margin: theme.spacing(2, 0, 0, 1),
+        fontSize: '0.85rem',
+        color: 'rgba(0, 0, 0, 0.54)',
+    },
+    selectProfession: {
+        marginBottom: 8,
     },
     formControl: {
         margin: theme.spacing(1),
@@ -37,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
     addSocialBtn: {
         alignItems: 'center',
+        margin: theme.spacing(2, 0),
         '& p': {
             marginLeft: 12,
         },
@@ -58,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btnContainer: {
         padding: '12px 0 8px 8px',
+        marginTop: 8,
         '& button': {
             marginRight: 16,
         },
@@ -93,24 +111,32 @@ const CreateProfile = () => {
                 md={8}
                 className={classes.profileContainer}
             >
-                <Typography variant="h2" className="large text-primary">
+                <Typography
+                    variant="h2"
+                    color="primary"
+                    className={classes.headTitle}
+                >
                     Create Your Profile
                 </Typography>
-                <Grid item container className="lead">
+                <Grid item container className={classes.lead}>
                     <PersonIcon />
                     <Typography>
                         Let's get some information to make your profile stand
                         out
                     </Typography>
                 </Grid>
-                <Typography>* = required field</Typography>
+                <Typography className={classes.required}>
+                    * = required field
+                </Typography>
                 <Grid item container>
                     <form className="form">
                         <FormControl
                             variant="outlined"
                             className={classes.formControl}
                         >
-                            <FormLabel>* Select Professional Status</FormLabel>
+                            <FormLabel className={classes.select}>
+                                * Select Professional Status
+                            </FormLabel>
                             <Select
                                 value={formData.sel}
                                 input={
@@ -197,7 +223,7 @@ const CreateProfile = () => {
                             className={classes.formControl}
                         >
                             <TextareaAutosize
-                                rowsMin={4}
+                                rowsMin={6}
                                 placeholder="A short bio of yourself"
                             ></TextareaAutosize>
                             <FormHelperText>
@@ -229,7 +255,10 @@ const CreateProfile = () => {
                                     container
                                     className={classes.formControlSocial}
                                 >
-                                    <TwitterIcon fontSize="large" />
+                                    <TwitterIcon
+                                        fontSize="large"
+                                        style={{ color: '#00acee' }}
+                                    />
                                     <FormControl style={{ width: '92%' }}>
                                         <TextField
                                             variant="outlined"
@@ -242,7 +271,10 @@ const CreateProfile = () => {
                                     container
                                     className={classes.formControlSocial}
                                 >
-                                    <FacebookIcon fontSize="large" />
+                                    <FacebookIcon
+                                        fontSize="large"
+                                        style={{ color: '#3b5998' }}
+                                    />
                                     <FormControl style={{ width: '92%' }}>
                                         <TextField
                                             variant="outlined"
@@ -255,7 +287,10 @@ const CreateProfile = () => {
                                     container
                                     className={classes.formControlSocial}
                                 >
-                                    <LinkedInIcon fontSize="large" />
+                                    <LinkedInIcon
+                                        fontSize="large"
+                                        style={{ color: '#0072b1' }}
+                                    />
                                     <FormControl style={{ width: '92%' }}>
                                         <TextField
                                             variant="outlined"
@@ -268,7 +303,10 @@ const CreateProfile = () => {
                                     container
                                     className={classes.formControlSocial}
                                 >
-                                    <YouTubeIcon fontSize="large" />
+                                    <YouTubeIcon
+                                        fontSize="large"
+                                        style={{ color: '#ff0000' }}
+                                    />
                                     <FormControl style={{ width: '92%' }}>
                                         <TextField
                                             variant="outlined"
@@ -281,7 +319,10 @@ const CreateProfile = () => {
                                     container
                                     className={classes.formControlSocial}
                                 >
-                                    <InstagramIcon fontSize="large" />
+                                    <InstagramIcon
+                                        fontSize="large"
+                                        style={{ color: '#8a3ab9' }}
+                                    />
                                     <FormControl style={{ width: '92%' }}>
                                         <TextField
                                             variant="outlined"
@@ -289,32 +330,28 @@ const CreateProfile = () => {
                                         />
                                     </FormControl>
                                 </Grid>
-                                <Grid
-                                    item
-                                    container
-                                    className={classes.btnContainer}
-                                >
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => console.log('submit')}
-                                    >
-                                        Submit
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="default"
-                                        onClick={() => console.log('go back')}
-                                        style={{
-                                            textTransform: 'capitalize',
-                                            fontSize: '1rem',
-                                        }}
-                                    >
-                                        Go back
-                                    </Button>
-                                </Grid>
                             </>
                         )}
+                        <Grid item container className={classes.btnContainer}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => console.log('submit')}
+                            >
+                                Submit
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="default"
+                                onClick={() => console.log('go back')}
+                                style={{
+                                    textTransform: 'capitalize',
+                                    fontSize: '1rem',
+                                }}
+                            >
+                                Go back
+                            </Button>
+                        </Grid>
                     </form>
                 </Grid>
             </Grid>
