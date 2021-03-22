@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     Grid,
     Typography,
@@ -12,7 +13,6 @@ import {
     FormHelperText,
     TextareaAutosize,
     OutlinedInput,
-    InputLabel,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -22,6 +22,9 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import InstagramIcon from '@material-ui/icons/Instagram';
+
+import { createProfile } from '../../context/actions/profile';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
@@ -117,13 +120,17 @@ const CreateProfile = () => {
         linkedin,
         instagram,
     } = formData;
+    const history = useHistory();
+    const { profileDispatch, alertDispatch } = useGlobalContext();
 
     const onChangeHandler = (e) => {
-        console.log(e.target.name, [e.target.name]);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    console.log('state: ', formData);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createProfile(formData, history)(profileDispatch, alertDispatch);
+    };
 
     return (
         <Grid container>
@@ -153,259 +160,264 @@ const CreateProfile = () => {
                     * = required field
                 </Typography>
                 <Grid item container>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <FormLabel className={classes.selectLabel}>
-                            * Select Professional Status
-                        </FormLabel>
-                        <Select
-                            name="status"
-                            value={status}
-                            input={
-                                <OutlinedInput
-                                    classes={{ input: classes.selectInput }}
-                                />
-                            }
-                            onChange={(e) => onChangeHandler(e)}
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <FormControl
+                            variant="outlined"
+                            className={classes.formControl}
                         >
-                            <MenuItem value="Developer">Developer</MenuItem>
-                            <MenuItem value="Junior Developer">
-                                Junior Developer
-                            </MenuItem>
-                            <MenuItem value="Senior Developer">
-                                Senior Developer
-                            </MenuItem>
-                            <MenuItem value="Manager">Manager</MenuItem>
-                            <MenuItem value="Instructor">Instructor</MenuItem>
-                            <MenuItem value="Intern">Intern</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
-                        </Select>
-                        <FormHelperText>
-                            Give us an idea of where you are at in your career
-                        </FormHelperText>
-                    </FormControl>
+                            <FormLabel className={classes.selectLabel}>
+                                * Select Professional Status
+                            </FormLabel>
+                            <Select
+                                name="status"
+                                value={status}
+                                input={
+                                    <OutlinedInput
+                                        classes={{ input: classes.selectInput }}
+                                    />
+                                }
+                                onChange={(e) => onChangeHandler(e)}
+                            >
+                                <MenuItem value="Developer">Developer</MenuItem>
+                                <MenuItem value="Junior Developer">
+                                    Junior Developer
+                                </MenuItem>
+                                <MenuItem value="Senior Developer">
+                                    Senior Developer
+                                </MenuItem>
+                                <MenuItem value="Manager">Manager</MenuItem>
+                                <MenuItem value="Instructor">
+                                    Instructor
+                                </MenuItem>
+                                <MenuItem value="Intern">Intern</MenuItem>
+                                <MenuItem value="Other">Other</MenuItem>
+                            </Select>
+                            <FormHelperText>
+                                Give us an idea of where you are at in your
+                                career
+                            </FormHelperText>
+                        </FormControl>
 
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                        <FormControl
                             variant="outlined"
-                            helperText="Could be your own company or one you work for"
-                            placeholder="Company"
-                            name="company"
-                            value={company}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Could be your own company or one you work for"
+                                placeholder="Company"
+                                name="company"
+                                value={company}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="Could be your own or a company website"
-                            placeholder="Website"
-                            name="website"
-                            value={website}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Could be your own or a company website"
+                                placeholder="Website"
+                                name="website"
+                                value={website}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="City & state suggested (eg. Boston, MA)"
-                            placeholder="Location"
-                            name="location"
-                            value={location}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="City & state suggested (eg. Boston, MA)"
+                                placeholder="Location"
+                                name="location"
+                                value={location}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="Please use comma separated values (eg.
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="Please use comma separated values (eg.
                                 HTML,CSS,JavaScript,PHP)"
-                            placeholder="* Skills"
-                            name="skills"
-                            value={skills}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextField
+                                placeholder="* Skills"
+                                name="skills"
+                                value={skills}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
                             variant="outlined"
-                            helperText="If you want your latest repos and a Github link,
+                            className={classes.formControl}
+                        >
+                            <TextField
+                                variant="outlined"
+                                helperText="If you want your latest repos and a Github link,
                             include your username"
-                            placeholder="GitHub Username"
-                            name="githubusername"
-                            value={githubusername}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextField>
-                    </FormControl>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <TextareaAutosize
-                            rowsMin={6}
-                            placeholder="A short bio of yourself"
-                            name="bio"
-                            value={bio}
-                            onChange={(e) => onChangeHandler(e)}
-                        ></TextareaAutosize>
-                        <FormHelperText>
-                            Tell us a little about yourself
-                        </FormHelperText>
-                    </FormControl>
+                                placeholder="GitHub Username"
+                                name="githubusername"
+                                value={githubusername}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextField>
+                        </FormControl>
+                        <FormControl
+                            variant="outlined"
+                            className={classes.formControl}
+                        >
+                            <TextareaAutosize
+                                rowsMin={6}
+                                placeholder="A short bio of yourself"
+                                name="bio"
+                                value={bio}
+                                onChange={(e) => onChangeHandler(e)}
+                            ></TextareaAutosize>
+                            <FormHelperText>
+                                Tell us a little about yourself
+                            </FormHelperText>
+                        </FormControl>
 
-                    <Grid item container className={classes.addSocialBtn}>
-                        <Button
-                            endIcon={
-                                showSocial ? (
-                                    <ExpandLessIcon />
-                                ) : (
-                                    <ExpandMoreIcon />
-                                )
-                            }
-                            onClick={() =>
-                                setShowSocial((preState) => !preState)
-                            }
-                        >
-                            Add Social Network Links
-                        </Button>
-                        <Typography>Optional</Typography>
-                    </Grid>
-                    {showSocial && (
-                        <>
-                            <Grid
-                                item
-                                container
-                                className={classes.formControlSocial}
+                        <Grid item container className={classes.addSocialBtn}>
+                            <Button
+                                endIcon={
+                                    showSocial ? (
+                                        <ExpandLessIcon />
+                                    ) : (
+                                        <ExpandMoreIcon />
+                                    )
+                                }
+                                onClick={() =>
+                                    setShowSocial((preState) => !preState)
+                                }
                             >
-                                <TwitterIcon
-                                    fontSize="large"
-                                    style={{ color: '#00acee' }}
-                                />
-                                <FormControl style={{ width: '92%' }}>
-                                    <TextField
-                                        variant="outlined"
-                                        placeholder="Twitter URL"
-                                        name="twitter"
-                                        value={twitter}
-                                        onChange={(e) => onChangeHandler(e)}
+                                Add Social Network Links
+                            </Button>
+                            <Typography>Optional</Typography>
+                        </Grid>
+                        {showSocial && (
+                            <>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <TwitterIcon
+                                        fontSize="large"
+                                        style={{ color: '#00acee' }}
                                     />
-                                </FormControl>
-                            </Grid>
-                            <Grid
-                                item
-                                container
-                                className={classes.formControlSocial}
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Twitter URL"
+                                            name="twitter"
+                                            value={twitter}
+                                            onChange={(e) => onChangeHandler(e)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <FacebookIcon
+                                        fontSize="large"
+                                        style={{ color: '#3b5998' }}
+                                    />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Facebook URL"
+                                            name="facebook"
+                                            value={facebook}
+                                            onChange={(e) => onChangeHandler(e)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <LinkedInIcon
+                                        fontSize="large"
+                                        style={{ color: '#0072b1' }}
+                                    />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="LinkedIn URL"
+                                            name="linkedin"
+                                            value={linkedin}
+                                            onChange={(e) => onChangeHandler(e)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <YouTubeIcon
+                                        fontSize="large"
+                                        style={{ color: '#ff0000' }}
+                                    />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Youtube URL"
+                                            name="youtube"
+                                            value={youtube}
+                                            onChange={(e) => onChangeHandler(e)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid
+                                    item
+                                    container
+                                    className={classes.formControlSocial}
+                                >
+                                    <InstagramIcon
+                                        fontSize="large"
+                                        style={{ color: '#8a3ab9' }}
+                                    />
+                                    <FormControl style={{ width: '92%' }}>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder="Instagram URL"
+                                            name="instagram"
+                                            value={instagram}
+                                            onChange={(e) => onChangeHandler(e)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                            </>
+                        )}
+                        <Grid item container className={classes.btnContainer}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
                             >
-                                <FacebookIcon
-                                    fontSize="large"
-                                    style={{ color: '#3b5998' }}
-                                />
-                                <FormControl style={{ width: '92%' }}>
-                                    <TextField
-                                        variant="outlined"
-                                        placeholder="Facebook URL"
-                                        name="facebook"
-                                        value={facebook}
-                                        onChange={(e) => onChangeHandler(e)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid
-                                item
-                                container
-                                className={classes.formControlSocial}
+                                Submit
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="default"
+                                onClick={() => history.push('/dashboard')}
+                                style={{
+                                    textTransform: 'capitalize',
+                                    fontSize: '1rem',
+                                }}
                             >
-                                <LinkedInIcon
-                                    fontSize="large"
-                                    style={{ color: '#0072b1' }}
-                                />
-                                <FormControl style={{ width: '92%' }}>
-                                    <TextField
-                                        variant="outlined"
-                                        placeholder="LinkedIn URL"
-                                        name="linkedin"
-                                        value={linkedin}
-                                        onChange={(e) => onChangeHandler(e)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid
-                                item
-                                container
-                                className={classes.formControlSocial}
-                            >
-                                <YouTubeIcon
-                                    fontSize="large"
-                                    style={{ color: '#ff0000' }}
-                                />
-                                <FormControl style={{ width: '92%' }}>
-                                    <TextField
-                                        variant="outlined"
-                                        placeholder="Youtube URL"
-                                        name="youtube"
-                                        value={youtube}
-                                        onChange={(e) => onChangeHandler(e)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid
-                                item
-                                container
-                                className={classes.formControlSocial}
-                            >
-                                <InstagramIcon
-                                    fontSize="large"
-                                    style={{ color: '#8a3ab9' }}
-                                />
-                                <FormControl style={{ width: '92%' }}>
-                                    <TextField
-                                        variant="outlined"
-                                        placeholder="Instagram URL"
-                                        name="instagram"
-                                        value={instagram}
-                                        onChange={(e) => onChangeHandler(e)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                        </>
-                    )}
-                    <Grid item container className={classes.btnContainer}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => console.log('submit')}
-                        >
-                            Submit
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="default"
-                            onClick={() => console.log('go back')}
-                            style={{
-                                textTransform: 'capitalize',
-                                fontSize: '1rem',
-                            }}
-                        >
-                            Go back
-                        </Button>
-                    </Grid>
+                                Go back
+                            </Button>
+                        </Grid>
+                    </form>
                 </Grid>
             </Grid>
             <Grid item md={2}></Grid>
