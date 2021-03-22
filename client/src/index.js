@@ -6,12 +6,12 @@ import { AppProvider } from './context/devsContext';
 // import { debugContextDevtool } from 'react-context-devtool';
 
 ReactDOM.render(
-  <React.StrictMode>
+    // <React.StrictMode>
     <AppProvider>
-      <App />
-    </AppProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+        <App />
+    </AppProvider>,
+    // </React.StrictMode>
+    document.getElementById('root')
 );
 
 // debugContextDevtool(document.getElementById('root'));
