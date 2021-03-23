@@ -36,7 +36,7 @@ const DashboardActions = () => {
     return (
         <Grid className={classes.btnContainer}>
             <Button
-                startIcon={<AccountCircleIcon />}
+                startIcon={<AccountCircleIcon color="primary" />}
                 color="default"
                 variant="contained"
                 onClick={() => history.push('/edit-profile')}
@@ -44,7 +44,7 @@ const DashboardActions = () => {
                 Edit Profile
             </Button>
             <Button
-                startIcon={<PinIcon />}
+                startIcon={<PinIcon color="primary" />}
                 color="default"
                 variant="contained"
                 onClick={() => history.push('/add-experience')}
@@ -52,7 +52,7 @@ const DashboardActions = () => {
                 Add Experience
             </Button>
             <Button
-                startIcon={<GraduationIcon />}
+                startIcon={<GraduationIcon color="primary" />}
                 color="default"
                 variant="contained"
                 onClick={() => history.push('/add-education')}
