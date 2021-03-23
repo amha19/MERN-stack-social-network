@@ -11,6 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { getCurrentProfile } from '../../context/actions/profile';
+import DashboardActions from './DashboardActions';
 
 const useStyle = makeStyles((theme) => ({
     dashboard: {
@@ -67,9 +68,7 @@ const Dashboard = () => {
                 </Grid>
                 <Grid item container direction="column">
                     {profile ? (
-                        <>
-                            <Typography>has</Typography>
-                        </>
+                        <DashboardActions />
                     ) : (
                         <>
                             <Typography>
