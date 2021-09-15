@@ -129,12 +129,8 @@ const CreateProfile = () => {
         instagram,
     } = formData;
     const history = useHistory();
-    const {
-        profileDispatch,
-        alertDispatch,
-        profile,
-        profileLoading,
-    } = useGlobalContext();
+    const { profileDispatch, alertDispatch, profile, profileLoading } =
+        useGlobalContext();
 
     useEffect(() => {
         getCurrentProfile()(profileDispatch);
@@ -148,14 +144,9 @@ const CreateProfile = () => {
                 skills,
                 bio,
                 githubusername,
+                social,
             } = profile.profile;
-            const {
-                youtube,
-                twitter,
-                facebook,
-                linkedin,
-                instagram,
-            } = profile.profile.social;
+
             setFormData({
                 company: company ? company : '',
                 website: website ? website : '',
@@ -164,11 +155,23 @@ const CreateProfile = () => {
                 skills: skills.join(', '),
                 bio: bio ? bio : '',
                 githubusername: githubusername ? githubusername : '',
-                youtube: youtube ? youtube : '',
-                twitter: twitter ? twitter : '',
-                facebook: facebook ? facebook : '',
-                linkedin: linkedin ? linkedin : '',
-                instagram: instagram ? instagram : '',
+                youtube: social ? (social.youtube ? social.youtube : '') : '',
+                twitter: social ? (social.twitter ? social.twitter : '') : '',
+                facebook: social
+                    ? social.facebook
+                        ? social.facebook
+                        : ''
+                    : '',
+                linkedin: social
+                    ? social.linkedin
+                        ? social.linkedin
+                        : ''
+                    : '',
+                instagram: social
+                    ? social.instagram
+                        ? social.instagram
+                        : ''
+                    : '',
             });
         }
         // eslint-disable-next-line

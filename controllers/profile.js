@@ -133,15 +133,8 @@ exports.addExperience = async (req, res, next) => {
             error: errors.array(),
         });
 
-    const {
-        title,
-        company,
-        location,
-        from,
-        to,
-        current,
-        description,
-    } = req.body;
+    const { title, company, location, from, to, current, description } =
+        req.body;
     const newExp = { title, company, location, from, to, current, description };
 
     try {
@@ -187,15 +180,8 @@ exports.addEducation = async (req, res, next) => {
             error: errors.array(),
         });
 
-    const {
-        school,
-        degree,
-        fieldofstudy,
-        from,
-        to,
-        current,
-        description,
-    } = req.body;
+    const { school, degree, fieldofstudy, from, to, current, description } =
+        req.body;
 
     const newEdu = {
         school,
