@@ -188,11 +188,15 @@ const AddExperience = () => {
                                 control={
                                     <Checkbox
                                         variant="outlined"
-                                        helperText="Current"
                                         checked={current}
                                         name="current"
                                         value={current}
-                                        onChange={(e) => onChangeHandler(e)}
+                                        onChange={(e) => {
+                                            setFormData((prev) => ({
+                                                ...formData,
+                                                current: !prev.current,
+                                            }));
+                                        }}
                                     />
                                 }
                                 label="Current Job"
