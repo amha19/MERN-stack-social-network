@@ -13,6 +13,7 @@ import Layout from './components/layout/Layout';
 import { theme } from './themes/theme';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
+import AddExperience from './components/profile-form/AddExperience';
 
 const App = () => {
     return (
@@ -45,6 +46,10 @@ const App = () => {
                                     <PrivateRoute
                                         path="/edit-profile"
                                         component={EditProfile}
+                                    />
+                                    <PrivateRoute
+                                        path="/add-experience"
+                                        component={AddExperience}
                                     />
                                     <Route path="*" component={Error} />
                                 </Switch>
