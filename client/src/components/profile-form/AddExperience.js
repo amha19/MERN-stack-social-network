@@ -35,39 +35,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '0.85rem',
         color: 'rgba(0, 0, 0, 0.54)',
     },
-    selectProfession: {
-        marginBottom: 8,
-    },
     formControl: {
         margin: theme.spacing(1),
         width: '100%',
         '& input': {
             padding: 12,
-        },
-    },
-    selectLabel: {
-        marginBottom: 4,
-    },
-    addSocialBtn: {
-        alignItems: 'center',
-        margin: theme.spacing(2, 0),
-        '& p': {
-            marginLeft: 12,
-        },
-    },
-    selectInput: {
-        padding: 12,
-    },
-    formControlSocial: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        marginTop: 10,
-        '& input': {
-            padding: 12,
-        },
-        '& svg': {
-            marginLeft: 12,
         },
     },
     btnContainer: {
@@ -146,7 +118,7 @@ const AddExperience = () => {
                                 name="title"
                                 value={title}
                                 onChange={(e) => onChangeHandler(e)}
-                            ></TextField>
+                            />
                         </FormControl>
                         <FormControl
                             variant="outlined"
@@ -158,7 +130,7 @@ const AddExperience = () => {
                                 name="company"
                                 value={company}
                                 onChange={(e) => onChangeHandler(e)}
-                            ></TextField>
+                            />
                         </FormControl>
                         <FormControl
                             variant="outlined"
@@ -170,7 +142,7 @@ const AddExperience = () => {
                                 name="location"
                                 value={location}
                                 onChange={(e) => onChangeHandler(e)}
-                            ></TextField>
+                            />
                         </FormControl>
                         <FormControl
                             variant="outlined"
@@ -182,7 +154,7 @@ const AddExperience = () => {
                                 name="from"
                                 value={from}
                                 onChange={(e) => onChangeHandler(e)}
-                            ></TextField>
+                            />
                         </FormControl>
                         <FormControl
                             variant="outlined"
@@ -217,7 +189,7 @@ const AddExperience = () => {
                                 value={to}
                                 disabled={current ? true : false}
                                 onChange={(e) => onChangeHandler(e)}
-                            ></TextField>
+                            />
                         </FormControl>
                         <FormControl
                             variant="outlined"
