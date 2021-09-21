@@ -13,6 +13,7 @@ export const profileReducer = (state = profileInitialState, action) => {
 
     switch (type) {
         case actions.GET_PROFILE:
+        case actions.UPDATE_PROFILE:
             return {
                 ...state,
                 profile: payload,

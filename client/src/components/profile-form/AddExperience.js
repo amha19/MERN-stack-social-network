@@ -7,15 +7,14 @@ import {
     Button,
     makeStyles,
     TextField,
-    FormHelperText,
     TextareaAutosize,
     Checkbox,
     FormControlLabel,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 
-// import { createProfile } from '../../context/actions/profile';
-// import { useGlobalContext } from '../../context/devsContext';
+import { updateProfile } from '../../context/actions/profile';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
@@ -84,6 +83,8 @@ const AddExperience = () => {
     const classes = useStyles();
     const history = useHistory();
 
+    const { profileDispatch, alertDispatch } = useGlobalContext();
+
     const [formData, setFormData] = useState({
         company: '',
         title: '',
@@ -94,13 +95,16 @@ const AddExperience = () => {
         description: '',
     });
 
-    // const [isToDisabled, setIsToDisabled] = useState(false);
-
     const { company, title, location, from, to, current, description } =
         formData;
 
     const onChangeHandler = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updateProfile(formData, history)(profileDispatch, alertDispatch);
     };
 
     return (
@@ -131,7 +135,7 @@ const AddExperience = () => {
                     * = required field
                 </Typography>
                 <Grid item container>
-                    <form onSubmit={(e) => onChangeHandler(e)}>
+                    <form onSubmit={(e) => handleSubmit(e)}>
                         <FormControl
                             variant="outlined"
                             className={classes.formControl}
@@ -225,10 +229,8 @@ const AddExperience = () => {
                                 name="description"
                                 value={description}
                                 onChange={(e) => onChangeHandler(e)}
+                                style={{ padding: 12 }}
                             ></TextareaAutosize>
-                            <FormHelperText>
-                                Tell us a little about your role
-                            </FormHelperText>
                         </FormControl>
 
                         <Grid item container className={classes.btnContainer}>
