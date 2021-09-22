@@ -17,13 +17,13 @@ router.get('/user/:user_id', checkAuth, profileController.getProfileByUserId);
 // POST /api/profile
 // Creates or updates a profile
 router.post(
-  '/',
-  checkAuth,
-  [
-    check('status', 'Status is required').notEmpty(),
-    check('skills', 'Skills is required').notEmpty(),
-  ],
-  profileController.createOrUpdateProfile
+    '/',
+    checkAuth,
+    [
+        check('status', 'Status is required').notEmpty(),
+        check('skills', 'Skills is required').notEmpty(),
+    ],
+    profileController.createOrUpdateProfile
 );
 
 // DELETE /api/profile
@@ -32,35 +32,35 @@ router.delete('/', checkAuth, profileController.deleteUser);
 
 // PUT /api/profile/experience
 router.put(
-  '/experience',
-  checkAuth,
-  [
-    check('title', 'Title is required').notEmpty(),
-    check('company', 'Company is required').notEmpty(),
-    check('from', 'From is required').notEmpty(),
-  ],
-  profileController.addExperience
+    '/experience',
+    checkAuth,
+    [
+        check('title', 'Title is required').notEmpty(),
+        check('company', 'Company is required').notEmpty(),
+        check('from', 'From is required').notEmpty(),
+    ],
+    profileController.addExperience
 );
 
 // DELETE /api/profile/experience/exp_id
 // Removes selected experience
 router.delete(
-  '/experience/:exp_id',
-  checkAuth,
-  profileController.removeExpById
+    '/experience/:exp_id',
+    checkAuth,
+    profileController.removeExpById
 );
 
 // PUT /api/profile/education
 router.put(
-  '/education',
-  checkAuth,
-  [
-    check('school', 'School is required').notEmpty(),
-    check('degree', 'Degree is required').notEmpty(),
-    check('fieldofstudy', 'Field of study is required').notEmpty(),
-    check('from', 'From is required').notEmpty(),
-  ],
-  profileController.addEducation
+    '/education',
+    checkAuth,
+    [
+        check('school', 'School is required').notEmpty(),
+        check('degree', 'Degree or Certificate is required').notEmpty(),
+        check('fieldofstudy', 'Field of study is required').notEmpty(),
+        check('from', 'From is required').notEmpty(),
+    ],
+    profileController.addEducation
 );
 
 // DELETE /api/profile/education/edu_id

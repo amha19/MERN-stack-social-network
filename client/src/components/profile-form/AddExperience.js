@@ -12,7 +12,7 @@ import {
     FormControlLabel,
 } from '@material-ui/core';
 import WorkIcon from '@material-ui/icons/Work';
-import { updateProfile } from '../../context/actions/profile';
+import { updateProfileExp } from '../../context/actions/profile';
 import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -88,7 +88,7 @@ const AddExperience = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateProfile(formData, history)(profileDispatch, alertDispatch);
+        updateProfileExp(formData, history)(profileDispatch, alertDispatch);
     };
 
     return (

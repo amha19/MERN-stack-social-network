@@ -66,7 +66,7 @@ export const createProfile =
     };
 
 // Add experience
-export const updateProfile =
+export const updateProfileExp =
     (formData, history) => async (profileDispatch, alertDispatch) => {
         try {
             const config = {
@@ -84,11 +84,55 @@ export const updateProfile =
             console.log('res from action: ', res.data);
 
             profileDispatch({
-                type: actions.UPDATE_PROFILE,
+                type: actions.UPDATE_PROFILE_EXPERIENCE,
                 payload: res.data,
             });
 
             setAlert('Experience Successfully Added', 'success')(alertDispatch);
+
+            history.push('/dashboard');
+        } catch (err) {
+            console.log(err.response);
+            const errors = err.response.data.error;
+
+            if (errors) {
+                errors.forEach((error) => {
+                    setAlert(error.msg, 'error')(alertDispatch);
+                });
+            }
+
+            profileDispatch({
+                type: actions.PROFILE_ERROR,
+                payload: {
+                    msg: err.response.statusText,
+                    status: err.response.status,
+                },
+            });
+        }
+    };
+
+// Add Education
+export const updateProfileEdu =
+    (formData, history) => async (profileDispatch, alertDispatch) => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            const res = await axios.put(
+                '/api/profile/education',
+                formData,
+                config
+            );
+
+            profileDispatch({
+                type: actions.UPDATE_PROFILE_EXPERIENCE,
+                payload: res.data,
+            });
+
+            setAlert('Education Added Successfully', 'success')(alertDispatch);
 
             history.push('/dashboard');
         } catch (err) {

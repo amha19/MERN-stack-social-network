@@ -12,6 +12,8 @@ import {
     FormControlLabel,
 } from '@material-ui/core';
 import CastForEducationIcon from '@material-ui/icons/CastForEducation';
+import { updateProfileEdu } from '../../context/actions/profile';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
@@ -65,6 +67,8 @@ const AddEducation = () => {
     const classes = useStyles();
     const history = useHistory();
 
+    const { profileDispatch, alertDispatch } = useGlobalContext();
+
     const [formData, setFormData] = useState({
         school: '',
         degree: '',
@@ -84,6 +88,7 @@ const AddEducation = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        updateProfileEdu(formData, history)(profileDispatch, alertDispatch);
     };
 
     return (
