@@ -41,19 +41,6 @@ const useStyles = makeStyles((theme) => ({
             padding: 12,
         },
     },
-    datePicker: {
-        border: '1px solid #c7c7c7',
-        borderRadius: 4,
-        color: 'rgba(0,0,0, 0.75)',
-        '&:hover': {
-            borderColor: 'rgba(0, 0, 0, 0.87)',
-        },
-        '&:disabled': {
-            borderColor: '#e6e6e6',
-            background: 'transparent',
-            color: 'rgba(0,0,0, 0.25)',
-        },
-    },
     btnContainer: {
         padding: '12px 0 8px 8px',
         marginTop: 8,
@@ -160,13 +147,13 @@ const AddExperience = () => {
                             variant="outlined"
                             className={classes.formControl}
                         >
-                            <input
+                            <TextField
                                 type="date"
                                 placeholder="mm/dd/yyyy"
+                                variant="outlined"
                                 name="from"
                                 value={from}
                                 onChange={(e) => onChangeHandler(e)}
-                                className={classes.datePicker}
                             />
                         </FormControl>
                         <FormControl
@@ -195,14 +182,14 @@ const AddExperience = () => {
                             variant="outlined"
                             className={classes.formControl}
                         >
-                            <input
+                            <TextField
                                 type="date"
                                 placeholder="mm/dd/yyyy"
+                                variant="outlined"
                                 name="to"
                                 value={to}
                                 disabled={current ? true : false}
                                 onChange={(e) => onChangeHandler(e)}
-                                className={classes.datePicker}
                             />
                         </FormControl>
                         <FormControl
