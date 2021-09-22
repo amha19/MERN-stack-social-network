@@ -66,7 +66,7 @@ export const createProfile =
     };
 
 // Add experience
-export const updateProfileExp =
+export const addExperience =
     (formData, history) => async (profileDispatch, alertDispatch) => {
         try {
             const config = {
@@ -84,7 +84,7 @@ export const updateProfileExp =
             console.log('res from action: ', res.data);
 
             profileDispatch({
-                type: actions.UPDATE_PROFILE_EXPERIENCE,
+                type: actions.UPDATE_PROFILE,
                 payload: res.data,
             });
 
@@ -112,7 +112,7 @@ export const updateProfileExp =
     };
 
 // Add Education
-export const updateProfileEdu =
+export const addEducation =
     (formData, history) => async (profileDispatch, alertDispatch) => {
         try {
             const config = {
@@ -128,7 +128,7 @@ export const updateProfileEdu =
             );
 
             profileDispatch({
-                type: actions.UPDATE_PROFILE_EXPERIENCE,
+                type: actions.UPDATE_PROFILE,
                 payload: res.data,
             });
 

@@ -12,7 +12,7 @@ import {
     FormControlLabel,
 } from '@material-ui/core';
 import CastForEducationIcon from '@material-ui/icons/CastForEducation';
-import { updateProfileEdu } from '../../context/actions/profile';
+import { addEducation } from '../../context/actions/profile';
 import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -88,7 +88,7 @@ const AddEducation = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateProfileEdu(formData, history)(profileDispatch, alertDispatch);
+        addEducation(formData, history)(profileDispatch, alertDispatch);
     };
 
     return (
