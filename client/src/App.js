@@ -14,6 +14,7 @@ import { theme } from './themes/theme';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperience';
+import AddEducation from './components/profile-form/AddEducation';
 
 const App = () => {
     return (
@@ -50,6 +51,10 @@ const App = () => {
                                     <PrivateRoute
                                         path="/add-experience"
                                         component={AddExperience}
+                                    />
+                                    <PrivateRoute
+                                        path="/add-education"
+                                        component={AddEducation}
                                     />
                                     <Route path="*" component={Error} />
                                 </Switch>

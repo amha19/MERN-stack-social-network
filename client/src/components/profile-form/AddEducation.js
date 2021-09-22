@@ -11,9 +11,7 @@ import {
     Checkbox,
     FormControlLabel,
 } from '@material-ui/core';
-import WorkIcon from '@material-ui/icons/Work';
-import { updateProfile } from '../../context/actions/profile';
-import { useGlobalContext } from '../../context/devsContext';
+import CastForEducationIcon from '@material-ui/icons/CastForEducation';
 
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
@@ -25,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     lead: {
         alignItems: 'center',
         '& p': {
-            marginLeft: 6,
+            marginLeft: 8,
             fontSize: '1.15rem',
         },
     },
@@ -63,23 +61,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddExperience = () => {
+const AddEducation = () => {
     const classes = useStyles();
     const history = useHistory();
 
-    const { profileDispatch, alertDispatch } = useGlobalContext();
-
     const [formData, setFormData] = useState({
-        company: '',
-        title: '',
-        location: '',
+        school: '',
+        degree: '',
+        fieldofstudy: '',
         from: '',
         to: '',
         current: false,
         description: '',
     });
 
-    const { company, title, location, from, to, current, description } =
+    const { school, degree, fieldofstudy, from, to, current, description } =
         formData;
 
     const onChangeHandler = (e) => {
@@ -88,7 +84,6 @@ const AddExperience = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateProfile(formData, history)(profileDispatch, alertDispatch);
     };
 
     return (
@@ -106,13 +101,12 @@ const AddExperience = () => {
                     color="primary"
                     className={classes.headTitle}
                 >
-                    Add Experience
+                    Add Your Education
                 </Typography>
                 <Grid item container className={classes.lead}>
-                    <WorkIcon />
+                    <CastForEducationIcon />
                     <Typography>
-                        Add any developer/programming positions that you had in
-                        the past
+                        Add any school or bootcamp that you have attended
                     </Typography>
                 </Grid>
                 <Typography className={classes.required}>
@@ -126,9 +120,9 @@ const AddExperience = () => {
                         >
                             <TextField
                                 variant="outlined"
-                                placeholder="* Job Title"
-                                name="title"
-                                value={title}
+                                placeholder="* School or Bootcamp"
+                                name="school"
+                                value={school}
                                 onChange={(e) => onChangeHandler(e)}
                             />
                         </FormControl>
@@ -138,9 +132,9 @@ const AddExperience = () => {
                         >
                             <TextField
                                 variant="outlined"
-                                placeholder="* Company"
-                                name="company"
-                                value={company}
+                                placeholder="* Degree or Certificate"
+                                name="degree"
+                                value={degree}
                                 onChange={(e) => onChangeHandler(e)}
                             />
                         </FormControl>
@@ -150,9 +144,9 @@ const AddExperience = () => {
                         >
                             <TextField
                                 variant="outlined"
-                                placeholder="Location"
-                                name="location"
-                                value={location}
+                                placeholder="Field of study"
+                                name="fieldofstudy"
+                                value={fieldofstudy}
                                 onChange={(e) => onChangeHandler(e)}
                             />
                         </FormControl>
@@ -247,4 +241,4 @@ const AddExperience = () => {
     );
 };
 
-export default AddExperience;
+export default AddEducation;
