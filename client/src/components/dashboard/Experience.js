@@ -30,8 +30,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const changeDateFormat = (date) => {
+    return new Date(date).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    });
+};
+
 const Experience = ({ experience }) => {
-    console.log('experience: ', experience);
     const classes = useStyles();
 
     return (
@@ -56,26 +63,10 @@ const Experience = ({ experience }) => {
                                     {exp.company}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {new Date(exp.from).toLocaleDateString(
-                                        undefined,
-                                        {
-                                            year: 'numeric',
-                                            month: 'short',
-                                            day: 'numeric',
-                                        }
-                                    )}
+                                    {changeDateFormat(exp.from)}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {exp.to
-                                        ? new Date(exp.to).toLocaleDateString(
-                                              undefined,
-                                              {
-                                                  year: 'numeric',
-                                                  month: 'short',
-                                                  day: 'numeric',
-                                              }
-                                          )
-                                        : ' Now'}
+                                    {exp.to ? changeDateFormat(exp.to) : ' Now'}
                                 </TableCell>
                                 <TableCell align="right">
                                     <Button
