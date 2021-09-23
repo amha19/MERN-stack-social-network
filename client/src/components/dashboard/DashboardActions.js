@@ -4,6 +4,7 @@ import { Grid, Button, SvgIcon, makeStyles } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Experience from './Experience';
 import { useGlobalContext } from '../../context/devsContext';
+import Education from './Education';
 
 const useStyles = makeStyles(() => ({
     btnContainer: {
@@ -35,7 +36,7 @@ const DashboardActions = () => {
     const classes = useStyles();
     const history = useHistory();
     const { profile } = useGlobalContext();
-    const { experience } = profile.profile;
+    const { experience, education } = profile.profile;
 
     return (
         <Grid className={classes.btnContainer}>
@@ -64,6 +65,7 @@ const DashboardActions = () => {
                 Add Education
             </Button>
             {experience && <Experience experience={experience} />}
+            {education && <Education education={education} />}
         </Grid>
     );
 };

@@ -38,37 +38,39 @@ const changeDateFormat = (date) => {
     });
 };
 
-const Experience = ({ experience }) => {
+const Education = ({ education }) => {
     const classes = useStyles();
 
     return (
         <>
             <Typography className={classes.text}>
-                Experience Credentials
+                Education Credentials
             </Typography>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHead}>
                         <TableRow>
-                            <TableCell>Company</TableCell>
-                            <TableCell>Title</TableCell>
+                            <TableCell>School</TableCell>
+                            <TableCell>Degree</TableCell>
                             <TableCell align="right">From</TableCell>
                             <TableCell align="right">To</TableCell>
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {experience.map((exp) => (
-                            <TableRow key={exp._id}>
-                                <TableCell component="th" scope="exp">
-                                    {exp.company}
+                        {education.map((educ) => (
+                            <TableRow key={educ._id}>
+                                <TableCell component="th" scope="educ">
+                                    {educ.school}
                                 </TableCell>
-                                <TableCell>{exp.title}</TableCell>
+                                <TableCell>{educ.degree}</TableCell>
                                 <TableCell align="right">
-                                    {changeDateFormat(exp.from)}
+                                    {changeDateFormat(educ.from)}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {exp.to ? changeDateFormat(exp.to) : ' Now'}
+                                    {educ.to
+                                        ? changeDateFormat(educ.to)
+                                        : ' Now'}
                                 </TableCell>
                                 <TableCell align="right">
                                     <Button
@@ -88,4 +90,4 @@ const Experience = ({ experience }) => {
     );
 };
 
-export default Experience;
+export default Education;
