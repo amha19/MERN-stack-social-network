@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Button, SvgIcon, makeStyles } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Experience from './Experience';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles(() => ({
     btnContainer: {
@@ -32,6 +34,8 @@ const GraduationIcon = (props) => {
 const DashboardActions = () => {
     const classes = useStyles();
     const history = useHistory();
+    const { profile } = useGlobalContext();
+    const { experience } = profile.profile;
 
     return (
         <Grid className={classes.btnContainer}>
@@ -59,6 +63,7 @@ const DashboardActions = () => {
             >
                 Add Education
             </Button>
+            {experience && <Experience experience={experience} />}
         </Grid>
     );
 };
