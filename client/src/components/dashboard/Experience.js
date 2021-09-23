@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
@@ -18,7 +18,17 @@ const useStyles = makeStyles({
             color: '#fff',
         },
     },
-});
+    text: {
+        margin: theme.spacing(5, 0, 3, 0),
+        fontSize: '1.25rem',
+    },
+    tableHead: {
+        backgroundColor: '#e6e6e6',
+        '& th': {
+            fontWeight: 600,
+        },
+    },
+}));
 
 const Experience = ({ experience }) => {
     console.log('experience: ', experience);
@@ -26,14 +36,16 @@ const Experience = ({ experience }) => {
 
     return (
         <>
-            <Typography variant="h1">Experience Credentials</Typography>
+            <Typography className={classes.text}>
+                Experience Credentials
+            </Typography>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
-                    <TableHead>
+                    <TableHead className={classes.tableHead}>
                         <TableRow>
                             <TableCell>Company</TableCell>
                             <TableCell align="right">From</TableCell>
-                            <TableCell>To</TableCell>
+                            <TableCell align="right">To</TableCell>
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
