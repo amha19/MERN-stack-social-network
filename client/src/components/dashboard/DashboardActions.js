@@ -39,34 +39,40 @@ const DashboardActions = () => {
     const { experience, education } = profile.profile;
 
     return (
-        <Grid className={classes.btnContainer}>
-            <Button
-                startIcon={<AccountCircleIcon color="primary" />}
-                color="default"
-                variant="contained"
-                onClick={() => history.push('/edit-profile')}
-            >
-                Edit Profile
-            </Button>
-            <Button
-                startIcon={<PinIcon color="primary" />}
-                color="default"
-                variant="contained"
-                onClick={() => history.push('/add-experience')}
-            >
-                Add Experience
-            </Button>
-            <Button
-                startIcon={<GraduationIcon color="primary" />}
-                color="default"
-                variant="contained"
-                onClick={() => history.push('/add-education')}
-            >
-                Add Education
-            </Button>
-            {experience.length !== 0 && <Experience experience={experience} />}
-            {education.length !== 0 && <Education education={education} />}
-        </Grid>
+        <>
+            <Grid className={classes.btnContainer}>
+                <Button
+                    startIcon={<AccountCircleIcon color="primary" />}
+                    color="default"
+                    variant="contained"
+                    onClick={() => history.push('/edit-profile')}
+                >
+                    Edit Profile
+                </Button>
+                <Button
+                    startIcon={<PinIcon color="primary" />}
+                    color="default"
+                    variant="contained"
+                    onClick={() => history.push('/add-experience')}
+                >
+                    Add Experience
+                </Button>
+                <Button
+                    startIcon={<GraduationIcon color="primary" />}
+                    color="default"
+                    variant="contained"
+                    onClick={() => history.push('/add-education')}
+                >
+                    Add Education
+                </Button>
+            </Grid>
+            <Grid>
+                {experience.length !== 0 && (
+                    <Experience experience={experience} />
+                )}
+                {education.length !== 0 && <Education education={education} />}
+            </Grid>
+        </>
     );
 };
 

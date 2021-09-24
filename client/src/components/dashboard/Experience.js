@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         margin: theme.spacing(5, 0, 3, 0),
-        fontSize: '1.25rem',
     },
     tableHead: {
         backgroundColor: '#e6e6e6',
@@ -46,7 +45,7 @@ const Experience = ({ experience }) => {
 
     return (
         <>
-            <Typography className={classes.text}>
+            <Typography variant="h5" className={classes.text}>
                 Experience Credentials
             </Typography>
             <TableContainer component={Paper}>
