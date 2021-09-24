@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { deleteExperience } from '../../context/actions/profile';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -40,6 +42,7 @@ const changeDateFormat = (date) => {
 
 const Experience = ({ experience }) => {
     const classes = useStyles();
+    const { profileDispatch, alertDispatch } = useGlobalContext();
 
     return (
         <>
@@ -75,6 +78,12 @@ const Experience = ({ experience }) => {
                                         variant="contained"
                                         color="primary"
                                         className={classes.button}
+                                        onClick={() =>
+                                            deleteExperience(exp._id)(
+                                                profileDispatch,
+                                                alertDispatch
+                                            )
+                                        }
                                     >
                                         delete
                                     </Button>

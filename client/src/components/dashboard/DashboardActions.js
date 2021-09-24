@@ -64,8 +64,8 @@ const DashboardActions = () => {
             >
                 Add Education
             </Button>
-            {experience && <Experience experience={experience} />}
-            {education && <Education education={education} />}
+            {experience.length !== 0 && <Experience experience={experience} />}
+            {education.length !== 0 && <Education education={education} />}
         </Grid>
     );
 };

@@ -81,8 +81,6 @@ export const addExperience =
                 config
             );
 
-            console.log('res from action: ', res.data);
-
             profileDispatch({
                 type: actions.UPDATE_PROFILE,
                 payload: res.data,
@@ -135,6 +133,41 @@ export const addEducation =
             setAlert('Education Added Successfully', 'success')(alertDispatch);
 
             history.push('/dashboard');
+        } catch (err) {
+            console.log(err.response);
+            const errors = err.response.data.error;
+
+            if (errors) {
+                errors.forEach((error) => {
+                    setAlert(error.msg, 'error')(alertDispatch);
+                });
+            }
+
+            profileDispatch({
+                type: actions.PROFILE_ERROR,
+                payload: {
+                    msg: err.response.statusText,
+                    status: err.response.status,
+                },
+            });
+        }
+    };
+
+// Delete Experience
+export const deleteExperience =
+    (id) => async (profileDispatch, alertDispatch) => {
+        try {
+            const res = await axios.delete(`/api/profile/experience/${id}`);
+
+            profileDispatch({
+                type: actions.UPDATE_PROFILE,
+                payload: res.data,
+            });
+
+            setAlert(
+                'Experience Deleted Successfully',
+                'success'
+            )(alertDispatch);
         } catch (err) {
             console.log(err.response);
             const errors = err.response.data.error;
