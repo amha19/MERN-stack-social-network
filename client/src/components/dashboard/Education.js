@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { deleteEducation } from '../../context/actions/profile';
+import { useGlobalContext } from '../../context/devsContext';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -39,6 +41,7 @@ const changeDateFormat = (date) => {
 
 const Education = ({ education }) => {
     const classes = useStyles();
+    const { profileDispatch, alertDispatch } = useGlobalContext();
 
     return (
         <>
@@ -76,6 +79,12 @@ const Education = ({ education }) => {
                                         variant="contained"
                                         color="primary"
                                         className={classes.button}
+                                        onClick={() =>
+                                            deleteEducation(educ._id)(
+                                                profileDispatch,
+                                                alertDispatch
+                                            )
+                                        }
                                     >
                                         delete
                                     </Button>

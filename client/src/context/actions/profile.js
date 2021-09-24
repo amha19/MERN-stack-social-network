@@ -187,3 +187,38 @@ export const deleteExperience =
             });
         }
     };
+
+// Delete Education
+export const deleteEducation =
+    (id) => async (profileDispatch, alertDispatch) => {
+        try {
+            const res = await axios.delete(`/api/profile/education/${id}`);
+
+            profileDispatch({
+                type: actions.UPDATE_PROFILE,
+                payload: res.data,
+            });
+
+            setAlert(
+                'Education Deleted Successfully',
+                'success'
+            )(alertDispatch);
+        } catch (err) {
+            console.log(err.response);
+            const errors = err.response.data.error;
+
+            if (errors) {
+                errors.forEach((error) => {
+                    setAlert(error.msg, 'error')(alertDispatch);
+                });
+            }
+
+            profileDispatch({
+                type: actions.PROFILE_ERROR,
+                payload: {
+                    msg: err.response.statusText,
+                    status: err.response.status,
+                },
+            });
+        }
+    };
