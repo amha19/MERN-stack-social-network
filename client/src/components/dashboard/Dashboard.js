@@ -32,12 +32,8 @@ const useStyle = makeStyles((theme) => ({
 const Dashboard = () => {
     const classes = useStyle();
     const history = useHistory();
-    const {
-        profileLoading,
-        profile,
-        user,
-        profileDispatch,
-    } = useGlobalContext();
+    const { profileLoading, profile, user, profileDispatch } =
+        useGlobalContext();
 
     useEffect(() => {
         getCurrentProfile()(profileDispatch);

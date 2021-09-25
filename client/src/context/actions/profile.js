@@ -8,7 +8,7 @@ export const getCurrentProfile = () => async (profileDispatch) => {
 
         profileDispatch({
             type: actions.GET_PROFILE,
-            payload: res.data,
+            payload: res.data.profile,
         });
     } catch (err) {
         console.log(err.response);
@@ -83,7 +83,7 @@ export const addExperience =
 
             profileDispatch({
                 type: actions.UPDATE_PROFILE,
-                payload: res.data,
+                payload: res.data.profile,
             });
 
             setAlert('Experience Successfully Added', 'success')(alertDispatch);
@@ -127,7 +127,7 @@ export const addEducation =
 
             profileDispatch({
                 type: actions.UPDATE_PROFILE,
-                payload: res.data,
+                payload: res.data.profile,
             });
 
             setAlert('Education Added Successfully', 'success')(alertDispatch);
@@ -161,7 +161,7 @@ export const deleteExperience =
 
             profileDispatch({
                 type: actions.UPDATE_PROFILE,
-                payload: res.data,
+                payload: res.data.profile,
             });
 
             setAlert(
@@ -170,14 +170,6 @@ export const deleteExperience =
             )(alertDispatch);
         } catch (err) {
             console.log(err.response);
-            const errors = err.response.data.error;
-
-            if (errors) {
-                errors.forEach((error) => {
-                    setAlert(error.msg, 'error')(alertDispatch);
-                });
-            }
-
             profileDispatch({
                 type: actions.PROFILE_ERROR,
                 payload: {
@@ -196,7 +188,7 @@ export const deleteEducation =
 
             profileDispatch({
                 type: actions.UPDATE_PROFILE,
-                payload: res.data,
+                payload: res.data.profile,
             });
 
             setAlert(
@@ -205,14 +197,6 @@ export const deleteEducation =
             )(alertDispatch);
         } catch (err) {
             console.log(err.response);
-            const errors = err.response.data.error;
-
-            if (errors) {
-                errors.forEach((error) => {
-                    setAlert(error.msg, 'error')(alertDispatch);
-                });
-            }
-
             profileDispatch({
                 type: actions.PROFILE_ERROR,
                 payload: {

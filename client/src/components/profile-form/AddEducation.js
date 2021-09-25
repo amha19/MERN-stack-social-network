@@ -174,7 +174,7 @@ const AddEducation = () => {
                                         }}
                                     />
                                 }
-                                label="Current Job"
+                                label="Not Done Yet"
                             />
                         </FormControl>
                         <FormControl

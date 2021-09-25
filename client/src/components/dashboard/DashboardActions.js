@@ -36,7 +36,7 @@ const DashboardActions = () => {
     const classes = useStyles();
     const history = useHistory();
     const { profile } = useGlobalContext();
-    const { experience, education } = profile.profile;
+    const { experience, education } = profile;
 
     return (
         <>

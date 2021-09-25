@@ -134,7 +134,6 @@ const CreateProfile = () => {
 
     useEffect(() => {
         getCurrentProfile()(profileDispatch);
-        console.log(profile, profileLoading);
         if (!profileLoading) {
             const {
                 company,
@@ -145,7 +144,7 @@ const CreateProfile = () => {
                 bio,
                 githubusername,
                 social,
-            } = profile.profile;
+            } = profile;
 
             setFormData({
                 company: company ? company : '',

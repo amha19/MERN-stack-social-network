@@ -41,29 +41,27 @@ export const register = (dataForm) => async (authDispatch, alertDispatch) => {
     }
 };
 
-export const login = (email, password) => async (
-    authDispatch,
-    alertDispatch
-) => {
-    try {
-        const res = await axios.post('api/auth', { email, password });
+export const login =
+    (email, password) => async (authDispatch, alertDispatch) => {
+        try {
+            const res = await axios.post('api/auth', { email, password });
 
-        authDispatch({ type: actions.LOGIN_SUCCESS, payload: res.data });
+            authDispatch({ type: actions.LOGIN_SUCCESS, payload: res.data });
 
-        loadUser()(authDispatch);
-        setAlert('Logged in successfully', 'success')(alertDispatch);
-    } catch (err) {
-        const errors = err.response.data.errors;
+            loadUser()(authDispatch);
+            setAlert('Logged in successfully', 'success')(alertDispatch);
+        } catch (err) {
+            const errors = err.response.data.errors;
 
-        if (errors) {
-            errors.forEach((error) => {
-                setAlert(error.msg, 'error')(alertDispatch);
-            });
+            if (errors) {
+                errors.forEach((error) => {
+                    setAlert(error.msg, 'error')(alertDispatch);
+                });
+            }
+
+            authDispatch({ type: actions.LOGIN_FAIL });
         }
-
-        authDispatch({ type: actions.LOGIN_FAIL });
-    }
-};
+    };
 
 export const logout = () => (authDispatch, profileDispatch) => {
     profileDispatch({ type: actions.CLEAR_PROFILE });
