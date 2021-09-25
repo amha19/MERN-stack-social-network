@@ -5,13 +5,23 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Experience from './Experience';
 import { useGlobalContext } from '../../context/devsContext';
 import Education from './Education';
+import { deleteAccount } from '../../context/actions/profile';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     btnContainer: {
         '& > *': {
             marginRight: 12,
             textTransform: 'capitalize',
             fontSize: '1rem',
+        },
+    },
+    deleteBtn: {
+        marginTop: theme.spacing(4),
+        textTransform: 'capitalize',
+        fontSize: '.75rem',
+        '&:hover': {
+            backgroundColor: '#DC143C',
+            color: '#FFF',
         },
     },
 }));
@@ -35,7 +45,8 @@ const GraduationIcon = (props) => {
 const DashboardActions = () => {
     const classes = useStyles();
     const history = useHistory();
-    const { profile } = useGlobalContext();
+    const { profile, authDispatch, profileDispatch, alertDispatch } =
+        useGlobalContext();
     const { experience, education } = profile;
 
     return (
@@ -71,6 +82,22 @@ const DashboardActions = () => {
                     <Experience experience={experience} />
                 )}
                 {education.length !== 0 && <Education education={education} />}
+            </Grid>
+            <Grid>
+                <Button
+                    className={classes.deleteBtn}
+                    variant="contained"
+                    startIcon={<AccountCircleIcon color="primary" />}
+                    onClick={() =>
+                        deleteAccount()(
+                            profileDispatch,
+                            authDispatch,
+                            alertDispatch
+                        )
+                    }
+                >
+                    delete my account
+                </Button>
             </Grid>
         </>
     );

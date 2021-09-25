@@ -206,3 +206,31 @@ export const deleteEducation =
             });
         }
     };
+
+// Delete Account
+
+export const deleteAccount =
+    () => async (profileDispatch, authDispatch, alertDispatch) => {
+        if (
+            window.confirm(
+                'Are you sure you want to delete your account? \n THIS CAN NOT BE UNDONE!'
+            )
+        ) {
+            try {
+                await axios.delete('/api/profile/');
+
+                profileDispatch({ type: actions.CLEAR_PROFILE });
+                authDispatch({ type: actions.DELETE_ACCOUNT });
+                setAlert('Account Deleted', 'success')(alertDispatch);
+            } catch (err) {
+                console.log(err);
+                profileDispatch({
+                    type: actions.PROFILE_ERROR,
+                    payload: {
+                        msg: err.response.statusText,
+                        status: err.response.status,
+                    },
+                });
+            }
+        }
+    };
