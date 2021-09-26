@@ -3,6 +3,7 @@ const axios = require('axios');
 const config = require('config');
 const Profile = require('../models/profile');
 const User = require('../models/user');
+const Post = require('../models/post');
 
 exports.getAllProfiles = async (req, res, next) => {
     try {
@@ -115,9 +116,9 @@ exports.createOrUpdateProfile = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
     try {
+        await Post.deleteMany({ userId: req.user.id });
         await Profile.findOneAndRemove({ userId: req.user.id });
         await User.findOneAndRemove({ _id: req.user.id });
-        // do delete post
 
         res.status(200).json({ msg: 'User removed' });
     } catch (err) {
