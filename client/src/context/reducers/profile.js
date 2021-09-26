@@ -19,6 +19,16 @@ export const profileReducer = (state = profileInitialState, action) => {
                 profile: payload,
                 profileLoading: false,
             };
+        case actions.GET_PROFILES:
+            return {
+                ...state,
+                profiles: payload,
+            };
+        case actions.GET_REPOS:
+            return {
+                ...state,
+                repos: payload,
+            };
         case actions.PROFILE_ERROR:
             return {
                 ...state,

@@ -22,6 +22,71 @@ export const getCurrentProfile = () => async (profileDispatch) => {
     }
 };
 
+// Get all profiles
+export const getProfiles = () => async (profileDispatch) => {
+    // profileDispatch({ type: actions.CLEAR_PROFILE });
+
+    try {
+        const res = await axios.get('/api/profile/');
+
+        profileDispatch({
+            type: actions.GET_PROFILES,
+            payload: res.data.profiles,
+        });
+    } catch (err) {
+        console.log(err.response);
+        profileDispatch({
+            type: actions.PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
+// Get a single user profile
+export const getProfileById = (userId) => async (profileDispatch) => {
+    try {
+        const res = axios.get(`/api/profile/user/${userId}`);
+
+        profileDispatch({
+            type: actions.GET_PROFILE,
+            payload: res.data.profile,
+        });
+    } catch (err) {
+        console.log(err.response);
+        profileDispatch({
+            type: actions.PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
+// Get user github repos
+export const getUserRepos = (username) => async (profileDispatch) => {
+    try {
+        const res = await axios.get(`/api/profile/github/${username}`);
+
+        profileDispatch({
+            type: actions.GET_REPOS,
+            payload: res.data,
+        });
+    } catch (err) {
+        console.log(err.response);
+        profileDispatch({
+            type: actions.PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
 export const createProfile =
     (formData, history, edit = false) =>
     async (profileDispatch, alertDispatch) => {
@@ -208,7 +273,6 @@ export const deleteEducation =
     };
 
 // Delete Account
-
 export const deleteAccount =
     () => async (profileDispatch, authDispatch, alertDispatch) => {
         if (
