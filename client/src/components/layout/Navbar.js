@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Link, Grid } from '@material-ui/core';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
-import PersonIcon from '@material-ui/icons/Person';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/devsContext';
@@ -30,12 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
     const classes = useStyles();
-    const {
-        isLoading,
-        isAuth,
-        authDispatch,
-        profileDispatch,
-    } = useGlobalContext();
+    const { isLoading, isAuth, authDispatch, profileDispatch } =
+        useGlobalContext();
 
     return (
         <div style={{ flexGrow: 1 }}>
@@ -64,7 +58,7 @@ const Navbar = () => {
                                 variant="inherit"
                                 underline="none"
                                 component={RouterLink}
-                                to="/"
+                                to="/profiles"
                             >
                                 <Typography>Developers</Typography>
                             </Link>
@@ -98,9 +92,18 @@ const Navbar = () => {
                                 underline="none"
                                 style={{ display: 'inherit' }}
                                 component={RouterLink}
+                                to="/profiles"
+                            >
+                                <Typography>Developers</Typography>
+                            </Link>
+                            <Link
+                                color="inherit"
+                                variant="inherit"
+                                underline="none"
+                                style={{ display: 'inherit' }}
+                                component={RouterLink}
                                 to="/dashboard"
                             >
-                                <PersonIcon />
                                 <Typography>Dashboard</Typography>
                             </Link>
                             <Link
@@ -112,7 +115,6 @@ const Navbar = () => {
                                 }
                                 style={{ display: 'inherit' }}
                             >
-                                <ExitToAppIcon />
                                 <Typography>Logout</Typography>
                             </Link>
                         </Grid>

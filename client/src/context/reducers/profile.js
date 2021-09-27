@@ -23,6 +23,7 @@ export const profileReducer = (state = profileInitialState, action) => {
             return {
                 ...state,
                 profiles: payload,
+                profileLoading: false,
             };
         case actions.GET_REPOS:
             return {
