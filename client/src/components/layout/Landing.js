@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         position: 'relative',
-        height: '100vh',
+        height: 'calc(100vh - 64px)',
     },
     dark_overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.7)',

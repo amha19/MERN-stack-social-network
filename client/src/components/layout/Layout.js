@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 
 import { useGlobalContext } from '../../context/devsContext';
 import { loadUser } from '../../context/actions/auth';
@@ -20,8 +20,10 @@ const Layout = ({ children }) => {
     return (
         <>
             <Navbar />
-            {alertState.length > 0 && <Alert />}
-            {children}
+            <Grid style={{ marginTop: '64px' }}>
+                {alertState.length > 0 && <Alert />}
+                {children}
+            </Grid>
         </>
     );
 };

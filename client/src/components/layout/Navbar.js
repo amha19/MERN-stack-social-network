@@ -11,12 +11,26 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    link: {
+        display: 'flex',
+        flexDirection: 'row',
+        maxWidth: '165px',
+        '&:hover': {
+            color: 'rgb(16, 113, 128)',
+            cursor: 'pointer',
+            transition: '200ms',
+        },
+        '& p': {
+            fontSize: '1.2rem',
+        },
+    },
     linkGroup: {
         width: 'auto',
         '& a': {
             '&:hover': {
                 color: 'rgb(16, 113, 128)',
                 cursor: 'pointer',
+                transition: '200ms',
             },
         },
         '& > *': {
@@ -32,96 +46,91 @@ const Navbar = () => {
         useGlobalContext();
 
     return (
-        <div style={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
+        <AppBar>
+            <Toolbar>
+                <Grid className={classes.title}>
                     <Link
-                        className={classes.title}
-                        style={{ display: 'inherit' }}
+                        className={classes.link}
                         component={RouterLink}
                         to="/"
                         variant="inherit"
                         color="inherit"
                         underline="none"
                     >
-                        <Grid item>
-                            <DeveloperModeIcon />
-                        </Grid>
-                        <Grid item>
-                            <Typography>DevConnector</Typography>
-                        </Grid>
+                        <DeveloperModeIcon />
+                        <Typography>DevConnector</Typography>
                     </Link>
-                    {!isAuth && (
-                        <Grid item container className={classes.linkGroup}>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                component={RouterLink}
-                                to="/profiles"
-                            >
-                                <Typography>Developers</Typography>
-                            </Link>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                style={{ display: 'inherit' }}
-                                component={RouterLink}
-                                to="/register"
-                            >
-                                <Typography>Register</Typography>
-                            </Link>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                style={{ display: 'inherit' }}
-                                component={RouterLink}
-                                to="/login"
-                            >
-                                <Typography>Login</Typography>
-                            </Link>
-                        </Grid>
-                    )}
-                    {isAuth && !isLoading && (
-                        <Grid item container className={classes.linkGroup}>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                style={{ display: 'inherit' }}
-                                component={RouterLink}
-                                to="/profiles"
-                            >
-                                <Typography>Developers</Typography>
-                            </Link>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                style={{ display: 'inherit' }}
-                                component={RouterLink}
-                                to="/dashboard"
-                            >
-                                <Typography>Dashboard</Typography>
-                            </Link>
-                            <Link
-                                color="inherit"
-                                variant="inherit"
-                                underline="none"
-                                onClick={() =>
-                                    logout()(authDispatch, profileDispatch)
-                                }
-                                style={{ display: 'inherit' }}
-                            >
-                                <Typography>Logout</Typography>
-                            </Link>
-                        </Grid>
-                    )}
-                </Toolbar>
-            </AppBar>
-        </div>
+                </Grid>
+                {!isAuth && (
+                    <Grid item container className={classes.linkGroup}>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            component={RouterLink}
+                            to="/profiles"
+                        >
+                            <Typography>Developers</Typography>
+                        </Link>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            style={{ display: 'inherit' }}
+                            component={RouterLink}
+                            to="/register"
+                        >
+                            <Typography>Register</Typography>
+                        </Link>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            style={{ display: 'inherit' }}
+                            component={RouterLink}
+                            to="/login"
+                        >
+                            <Typography>Login</Typography>
+                        </Link>
+                    </Grid>
+                )}
+                {isAuth && !isLoading && (
+                    <Grid item container className={classes.linkGroup}>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            style={{ display: 'inherit' }}
+                            component={RouterLink}
+                            to="/profiles"
+                        >
+                            <Typography>Developers</Typography>
+                        </Link>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            style={{ display: 'inherit' }}
+                            component={RouterLink}
+                            to="/dashboard"
+                        >
+                            <Typography>Dashboard</Typography>
+                        </Link>
+                        <Link
+                            color="inherit"
+                            variant="inherit"
+                            underline="none"
+                            onClick={() =>
+                                logout()(authDispatch, profileDispatch)
+                            }
+                            style={{ display: 'inherit' }}
+                        >
+                            <Typography>Logout</Typography>
+                        </Link>
+                    </Grid>
+                )}
+            </Toolbar>
+        </AppBar>
     );
 };
 
