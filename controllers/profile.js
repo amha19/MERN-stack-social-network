@@ -7,10 +7,7 @@ const Post = require('../models/post');
 
 exports.getAllProfiles = async (req, res, next) => {
     try {
-        const profiles = await Profile.find().populate(
-            'userId',
-            'name, avatar'
-        );
+        const profiles = await Profile.find().populate('userId', '-password');
         if (!profiles) return res.status(400).json({ msg: 'No profile found' });
         res.status(200).json({ profiles });
     } catch (err) {
