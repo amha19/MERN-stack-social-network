@@ -64,6 +64,6 @@ export const login =
     };
 
 export const logout = () => (authDispatch, profileDispatch) => {
-    profileDispatch({ type: actions.CLEAR_PROFILE });
+    // profileDispatch({ type: actions.CLEAR_PROFILE });
     authDispatch({ type: actions.LOGOUT });
 };

@@ -40,6 +40,7 @@ export const profileReducer = (state = profileInitialState, action) => {
             return {
                 ...state,
                 profile: null,
+                profileLoading: true,
             };
         default:
             throw new Error('No action match dispatch');
