@@ -4,6 +4,7 @@ import { useGlobalContext } from '../../context/devsContext';
 import { getProfileById } from '../../context/actions/profile';
 import { Button, Grid, LinearProgress, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import ProfileTop from './ProfileTop';
 
 const Profile = ({ match }) => {
     const {
@@ -27,25 +28,27 @@ const Profile = ({ match }) => {
         );
 
     return (
-        <Grid>
-            <Typography>{profile.userId.name}</Typography>
-            <Button
-                color="primary"
-                variant="contained"
-                onClick={() => history.push('/profiles')}
-            >
-                Back To Profiles
-            </Button>
-            {isAuth && userId === user.user._id && (
+        <Grid container direction="column">
+            <Grid>
                 <Button
-                    color="default"
+                    color="primary"
                     variant="contained"
-                    style={{ textTransform: 'capitalize' }}
-                    onClick={() => history.push('/edit-profile')}
+                    onClick={() => history.push('/profiles')}
                 >
-                    Edit Profile
+                    Back To Profiles
                 </Button>
-            )}
+                {isAuth && userId === user.user._id && (
+                    <Button
+                        color="default"
+                        variant="contained"
+                        style={{ textTransform: 'capitalize' }}
+                        onClick={() => history.push('/edit-profile')}
+                    >
+                        Edit Profile
+                    </Button>
+                )}
+            </Grid>
+            <ProfileTop profile={profile} />
         </Grid>
     );
 };
