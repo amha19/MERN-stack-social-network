@@ -7,6 +7,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     profileContainer: {
@@ -51,8 +52,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileItem = ({ profile }) => {
     const classes = useStyles();
+    const history = useHistory();
+
     const {
-        userId: { name, avatar },
+        userId: { name, avatar, _id },
         status,
         location,
         skills,
@@ -79,6 +82,7 @@ const ProfileItem = ({ profile }) => {
                         style={{ marginTop: 24 }}
                         variant="contained"
                         color="primary"
+                        onClick={() => history.push(`/profile/${_id}`)}
                     >
                         View Profile
                     </Button>

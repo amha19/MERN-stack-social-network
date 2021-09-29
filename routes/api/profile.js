@@ -14,7 +14,7 @@ router.get('/me', checkAuth, profileController.getUserProfile);
 
 // GET /api/profile/user/:user_id
 // Gets a single user profile
-router.get('/user/:user_id', checkAuth, profileController.getProfileByUserId);
+router.get('/user/:user_id', profileController.getProfileByUserId);
 
 // POST /api/profile
 // Creates or updates a profile
