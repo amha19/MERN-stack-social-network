@@ -2,11 +2,20 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../context/devsContext';
 import { getProfileById } from '../../context/actions/profile';
-import { Button, Grid, LinearProgress, Typography } from '@material-ui/core';
+import { Button, Grid, LinearProgress, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import ProfileTop from './ProfileTop';
 
+const useStyles = makeStyles((theme) => ({
+    btnContainer: {
+        padding: theme.spacing(3, 0),
+        width: '100%',
+    },
+}));
+
 const Profile = ({ match }) => {
+    const classes = useStyles();
+
     const {
         params: { userId },
     } = match;
@@ -16,7 +25,6 @@ const Profile = ({ match }) => {
 
     useEffect(() => {
         getProfileById(userId)(profileDispatch);
-        console.log('come here?');
     }, [profileDispatch, userId]);
 
     if (!profile) return <LinearProgress />;
@@ -28,18 +36,19 @@ const Profile = ({ match }) => {
         );
 
     return (
-        <Grid container direction="column">
-            <Grid>
+        <Grid container direction="column" alignItems="center">
+            <Grid item sm={8} xs={12} className={classes.btnContainer}>
                 <Button
                     color="primary"
                     variant="contained"
+                    style={{ marginRight: 16 }}
                     onClick={() => history.push('/profiles')}
                 >
                     Back To Profiles
                 </Button>
                 {isAuth && userId === user.user._id && (
                     <Button
-                        color="default"
+                        color="secondary"
                         variant="contained"
                         style={{ textTransform: 'capitalize' }}
                         onClick={() => history.push('/edit-profile')}
