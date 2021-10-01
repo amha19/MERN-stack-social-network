@@ -12,6 +12,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import InstagramIcon from '@material-ui/icons/Instagram';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const useStyles = makeStyles((theme) => ({
     profileTop: {
@@ -44,14 +45,12 @@ const useStyles = makeStyles((theme) => ({
 const ProfileTop = ({ profile }) => {
     const classes = useStyles();
 
-    console.log('profile: ', profile);
-
     const {
         company,
         location,
         status,
+        website,
         userId: { avatar, name },
-        skills,
         social,
     } = profile;
 
@@ -88,6 +87,8 @@ const ProfileTop = ({ profile }) => {
                         color="inherit"
                         underline="none"
                         href={linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <LinkedInIcon />
                     </Link>
@@ -98,6 +99,8 @@ const ProfileTop = ({ profile }) => {
                         color="inherit"
                         underline="none"
                         href={twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <TwitterIcon />
                     </Link>
@@ -108,6 +111,8 @@ const ProfileTop = ({ profile }) => {
                         color="inherit"
                         underline="none"
                         href={instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <InstagramIcon />
                     </Link>
@@ -118,6 +123,8 @@ const ProfileTop = ({ profile }) => {
                         color="inherit"
                         underline="none"
                         href={facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <FacebookIcon />
                     </Link>
@@ -128,8 +135,22 @@ const ProfileTop = ({ profile }) => {
                         color="inherit"
                         underline="none"
                         href={youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <YouTubeIcon />
+                    </Link>
+                )}
+                {website && (
+                    <Link
+                        variant="inherit"
+                        color="inherit"
+                        underline="none"
+                        href={website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <LanguageIcon />
                     </Link>
                 )}
             </Box>
