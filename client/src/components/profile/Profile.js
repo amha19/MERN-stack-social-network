@@ -6,11 +6,17 @@ import { Button, Grid, LinearProgress, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
+import ProfileExperience from './ProfileExperience';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
         padding: theme.spacing(3, 0),
         width: '100%',
+    },
+    epxAndEducCont: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        margin: theme.spacing(3, 0),
     },
 }));
 
@@ -60,6 +66,16 @@ const Profile = () => {
             </Grid>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
+            <Grid
+                item
+                sm={8}
+                xs={12}
+                container
+                className={classes.epxAndEducCont}
+            >
+                <ProfileExperience profile={profile} />
+                <Grid item>Education Credentials</Grid>
+            </Grid>
         </Grid>
     );
 };

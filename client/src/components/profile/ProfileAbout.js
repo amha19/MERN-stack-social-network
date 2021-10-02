@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Grid, makeStyles, Typography, Box, Divider } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 
@@ -36,18 +36,23 @@ const ProfileAbout = ({ profile }) => {
             <Divider style={{ width: '90%', marginBottom: 16 }} />
             <Typography className={classes.bioHead}>Skill Set</Typography>
 
-            <Box display="flex" flexDirection="row" justifyContent="center">
+            <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="center"
+                alignItems="center"
+            >
                 {skills.map((skill, index) => (
-                    <Typography key={index} style={{ padding: '0 16px' }}>
-                        <Box display="flex" alignItems="center">
-                            <CheckIcon
-                                fontSize="small"
-                                color="primary"
-                                style={{ marginRight: 4 }}
-                            />
+                    <Fragment key={index}>
+                        <CheckIcon
+                            fontSize="small"
+                            color="primary"
+                            style={{ marginRight: 4 }}
+                        />
+                        <Typography style={{ marginRight: 20 }}>
                             {skill}
-                        </Box>
-                    </Typography>
+                        </Typography>
+                    </Fragment>
                 ))}
             </Box>
         </Grid>
