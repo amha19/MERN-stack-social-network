@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    expContainer: {
+    educContainer: {
         width: '49%',
         padding: theme.spacing(3),
         backgroundColor: '#e0e0e0',
     },
 }));
 
-const ProfileExperience = ({ profile: { experience } }) => {
+const ProfileEducation = ({ profile: { education } }) => {
     const classes = useStyles();
 
     const changeDateFormat = (date) => {
@@ -21,18 +21,18 @@ const ProfileExperience = ({ profile: { experience } }) => {
     };
 
     return (
-        <Grid item className={classes.expContainer}>
-            <Typography>Experience</Typography>
-            {experience.map((exp, index) => {
+        <Grid item className={classes.educContainer}>
+            <Typography>Education</Typography>
+            {education.map((educ, index) => {
                 const {
-                    title,
-                    company,
-                    location,
+                    school,
+                    degree,
+                    fieldofstudy,
                     from,
                     to,
                     current,
                     description,
-                } = exp;
+                } = educ;
                 return (
                     <Fragment key={index}>
                         {index > 0 && (
@@ -43,13 +43,13 @@ const ProfileExperience = ({ profile: { experience } }) => {
                                 }}
                             />
                         )}
-                        <Typography>{company}</Typography>
-                        <Typography>{location}</Typography>
+                        <Typography>{school}</Typography>
                         <Typography>
                             {changeDateFormat(from)} -{' '}
                             {current ? 'Now' : changeDateFormat(to)}
                         </Typography>
-                        <Typography>Position: {title}</Typography>
+                        <Typography>Degree: {degree}</Typography>
+                        <Typography>Field Of Study: {fieldofstudy}</Typography>
                         {description && (
                             <Typography>Description: {description}</Typography>
                         )}
@@ -60,4 +60,4 @@ const ProfileExperience = ({ profile: { experience } }) => {
     );
 };
 
-export default ProfileExperience;
+export default ProfileEducation;

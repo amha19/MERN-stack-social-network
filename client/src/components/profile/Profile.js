@@ -7,6 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
+import ProfileEducation from './ProfileEducation';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
@@ -74,7 +75,7 @@ const Profile = () => {
                 className={classes.epxAndEducCont}
             >
                 <ProfileExperience profile={profile} />
-                <Grid item>Education Credentials</Grid>
+                <ProfileEducation profile={profile} />
             </Grid>
         </Grid>
     );
