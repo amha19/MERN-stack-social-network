@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
+import { changeDateFormat } from '../../utils/dateFormat';
 
 const useStyles = makeStyles((theme) => ({
     expContainer: {
@@ -11,14 +12,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileExperience = ({ profile: { experience } }) => {
     const classes = useStyles();
-
-    const changeDateFormat = (date) => {
-        return new Date(date).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        });
-    };
 
     return (
         <Grid item className={classes.expContainer}>

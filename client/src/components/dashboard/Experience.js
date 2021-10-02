@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { deleteExperience } from '../../context/actions/profile';
 import { useGlobalContext } from '../../context/devsContext';
+import { changeDateFormat } from '../../utils/dateFormat';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -30,14 +31,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-
-const changeDateFormat = (date) => {
-    return new Date(date).toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-    });
-};
 
 const Experience = ({ experience }) => {
     const classes = useStyles();
