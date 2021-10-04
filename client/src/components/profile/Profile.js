@@ -8,6 +8,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
+import ProfileGitHub from './ProfileGitHub';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
@@ -29,6 +30,7 @@ const Profile = () => {
         useGlobalContext();
     const history = useHistory();
 
+    console.log('profile: ', profile);
     useEffect(() => {
         getProfileById(userId)(profileDispatch);
     }, [profileDispatch, userId]);
@@ -76,6 +78,7 @@ const Profile = () => {
             >
                 <ProfileExperience profile={profile} />
                 <ProfileEducation profile={profile} />
+                <ProfileGitHub username={profile.githubusername} />
             </Grid>
         </Grid>
     );
