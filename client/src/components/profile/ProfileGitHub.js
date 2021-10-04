@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
     Grid,
     LinearProgress,
@@ -24,8 +24,6 @@ const ProfileGitHub = ({ username }) => {
     useEffect(() => {
         getUserRepos(username)(profileDispatch);
     }, [username, profileDispatch]);
-
-    console.log('user repos: ', repos);
 
     if (repos.length === 0) return <LinearProgress />;
 

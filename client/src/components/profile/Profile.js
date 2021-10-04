@@ -30,7 +30,6 @@ const Profile = () => {
         useGlobalContext();
     const history = useHistory();
 
-    console.log('profile: ', profile);
     useEffect(() => {
         getProfileById(userId)(profileDispatch);
     }, [profileDispatch, userId]);
@@ -78,7 +77,9 @@ const Profile = () => {
             >
                 <ProfileExperience profile={profile} />
                 <ProfileEducation profile={profile} />
-                <ProfileGitHub username={profile.githubusername} />
+                {profile.githubusername && (
+                    <ProfileGitHub username={profile.githubusername} />
+                )}
             </Grid>
         </Grid>
     );

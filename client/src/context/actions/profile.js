@@ -68,8 +68,19 @@ export const getProfileById = (userId) => async (profileDispatch) => {
 
 // Get user github repos
 export const getUserRepos = (username) => async (profileDispatch) => {
+    const repos = localStorage.getItem(username);
+    if (repos) {
+        profileDispatch({
+            type: actions.GET_REPOS,
+            payload: JSON.parse(repos),
+        });
+        return;
+    }
+
     try {
         const res = await axios.get(`/api/profile/github/${username}`);
+
+        localStorage.setItem(`${username}`, JSON.stringify(res.data));
 
         profileDispatch({
             type: actions.GET_REPOS,
