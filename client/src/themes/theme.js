@@ -5,6 +5,10 @@ export const theme = createMuiTheme({
         h2: {
             fontSize: '2.5rem',
         },
+        h3: {
+            fontSize: '1.4rem',
+            fontWeight: '600',
+        },
         h5: {
             fontSize: '1.25rem',
         },

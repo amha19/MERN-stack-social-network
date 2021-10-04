@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#e0e0e0',
     },
     education: {
-        fontSize: '1.4rem',
-        fontWeight: '600',
-        color: theme.palette.primary.main,
         marginBottom: theme.spacing(2),
     },
 }));
@@ -22,7 +19,13 @@ const ProfileEducation = ({ profile: { education } }) => {
 
     return (
         <Grid item className={classes.educContainer}>
-            <Typography className={classes.education}>Education</Typography>
+            <Typography
+                color="primary"
+                variant="h3"
+                className={classes.education}
+            >
+                Education
+            </Typography>
             {education.length > 0 ? (
                 education.map((educ, index) => {
                     const {

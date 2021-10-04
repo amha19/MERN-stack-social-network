@@ -25,10 +25,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-around',
-        '& p:first-of-type': {
-            fontSize: '1.4rem',
-            fontWeight: '600',
-        },
     },
     avatar: {
         width: theme.spacing(12),
@@ -75,7 +71,7 @@ const ProfileTop = ({ profile }) => {
                 src={avatar ? avatar : ''}
                 className={classes.avatar}
             />
-            <Typography>{name}</Typography>
+            <Typography variant="h3">{name}</Typography>
             <Typography>
                 {status} at {company ? company : ''}
             </Typography>

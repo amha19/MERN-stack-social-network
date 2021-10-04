@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
+import { Grid, Typography, makeStyles, Divider, Box } from '@material-ui/core';
 import { changeDateFormat } from '../../utils/dateFormat';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#e0e0e0',
     },
     experience: {
-        fontSize: '1.4rem',
-        fontWeight: '600',
-        color: theme.palette.primary.main,
         marginBottom: theme.spacing(2),
     },
 }));
@@ -20,11 +17,15 @@ const useStyles = makeStyles((theme) => ({
 const ProfileExperience = ({ profile: { experience } }) => {
     const classes = useStyles();
 
-    console.log('experience ', experience);
-
     return (
         <Grid item className={classes.expContainer}>
-            <Typography className={classes.experience}>Experience</Typography>
+            <Typography
+                color="primary"
+                variant="h3"
+                className={classes.experience}
+            >
+                Experience
+            </Typography>
             {experience.length > 0 ? (
                 experience.map((exp, index) => {
                     const {

@@ -15,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    bioHead: {
-        fontSize: '1.4rem',
-        fontWeight: '600',
-        color: theme.palette.primary.main,
-    },
 }));
 
 const ProfileAbout = ({ profile }) => {
@@ -32,10 +27,14 @@ const ProfileAbout = ({ profile }) => {
 
     return (
         <Grid item sm={8} xs={12} container className={classes.profileAbout}>
-            <Typography className={classes.bioHead}>{name}s Bio</Typography>
+            <Typography color="primary" variant="h3">
+                {name}s Bio
+            </Typography>
             {bio && <Typography>{bio}</Typography>}
             <Divider style={{ width: '90%', marginBottom: 16 }} />
-            <Typography className={classes.bioHead}>Skill Set</Typography>
+            <Typography color="primary" variant="h3">
+                Skill Set
+            </Typography>
 
             <Box
                 display="flex"
