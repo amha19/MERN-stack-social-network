@@ -5,6 +5,7 @@ import CheckIcon from '@material-ui/icons/Check';
 const useStyles = makeStyles((theme) => ({
     profileAbout: {
         marginTop: theme.spacing(3),
+        border: '1px solid #bfbfbf',
         backgroundColor: '#e0e0e0',
         padding: theme.spacing(2, 0),
         width: '100%',
