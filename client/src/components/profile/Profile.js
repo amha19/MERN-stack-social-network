@@ -77,10 +77,10 @@ const Profile = () => {
             >
                 <ProfileExperience profile={profile} />
                 <ProfileEducation profile={profile} />
-                {profile.githubusername && (
-                    <ProfileGitHub username={profile.githubusername} />
-                )}
             </Grid>
+            {profile.githubusername && (
+                <ProfileGitHub username={profile.githubusername} />
+            )}
         </Grid>
     );
 };
