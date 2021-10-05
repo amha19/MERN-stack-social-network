@@ -3,6 +3,8 @@ import * as actions from './types';
 import { setAlert } from './alert';
 
 export const getCurrentProfile = () => async (profileDispatch) => {
+    profileDispatch({ type: actions.CLEAR_PROFILE });
+
     try {
         const res = await axios.get('/api/profile/me');
 
